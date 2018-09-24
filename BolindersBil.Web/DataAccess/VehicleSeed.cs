@@ -1,0 +1,52 @@
+﻿using BolindersBil.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BolindersBil.Web.Repositories;
+
+namespace BolindersBil.Web.DataAccess
+{
+    public static class VehicleSeed
+    {
+        internal static void FillIfEmpty(ApplicationDbContext ctx)
+        {
+            if (!ctx.Brands.Any())
+            {
+                ctx.Brands.Add(new Brand { Name = "Audi", LogoUrl = "http://www.carlogos.org/logo/Audi-emblem-2016-black-1920x1080.png" });
+                ctx.Brands.Add(new Brand { Name = "Volvo", LogoUrl = "http://www.carlogos.org/logo/Volvo-logo-2014-1920x1080.png" });
+                ctx.Brands.Add(new Brand { Name = "Saab", LogoUrl = "http://www.carlogos.org/logo/Saab-logo-2013-2000x450.png" });
+                ctx.Brands.Add(new Brand { Name = "Volkswagen", LogoUrl = "http://www.carlogos.org/logo/Volkswagen-logo-2015-1920x1080.png" });
+                ctx.Brands.Add(new Brand { Name = "Ford", LogoUrl = "http://www.carlogos.org/logo/Ford-logo-2003-1366x768.png" });
+                ctx.Brands.Add(new Brand { Name = "BMW", LogoUrl = "http://www.carlogos.org/logo/BMW-logo-2000-2048x2048.png" });
+                ctx.Brands.Add(new Brand { Name = "Mercedes-Benz", LogoUrl = "http://www.carlogos.org/logo/Mercedes-Benz-logo-2011-1920x1080.png" });
+                ctx.Brands.Add(new Brand { Name = "Peugeot", LogoUrl = "http://www.carlogos.org/logo/Peugeot-logo-2010-1920x1080.png" });
+                ctx.SaveChanges();
+
+            }
+            if (!ctx.Dealerships.Any())
+            {
+                ctx.Dealerships.Add(new Dealership { Name = "BB1", City = "Jönköping", Phone = "036-123456" });
+                ctx.Dealerships.Add(new Dealership { Name = "BB2", City = "Värnamo", Phone = "0370-123456" });
+                ctx.Dealerships.Add(new Dealership { Name = "BB3", City = "Göteborg", Phone = "031-123456" });
+                ctx.SaveChanges();
+
+            }
+
+
+            if (!ctx.Vehicles.Any())
+            {
+                var vehicles = new List<Vehicle>{
+                    new Vehicle {Model = "V60", ModelDescription="T4 Business", RegistrationNumber="ABC123", Year = 1998, Mileage = 1342323, Price = 129999, Body="Småbil", Color="Blå", Transmission="Manuell", Fuel="Metangas", Horsepower="199", Used=true, DateAdded=DateTime.Now, DateUpdated=DateTime.Now, ImageUrl="https://via.placeholder.com/350x150", Lease=true, BrandId=1, DealerShipId=2},
+
+                };
+
+                ctx.Vehicles.AddRange(vehicles);
+                ctx.SaveChanges();
+
+            }
+
+
+        }
+    }
+}

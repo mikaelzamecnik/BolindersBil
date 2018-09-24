@@ -2,24 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BolindersBil.Web.DataAccess;
+using BolindersBil.Web.Repositories;
+using BolindersBil.Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace BolindersBil.Web
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
+
+        IConfiguration _configuration;
+
+        public Startup(IConfiguration conf)
+        {
+            _configuration = conf;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var conn = _configuration.GetConnectionString("BolindersBil");
             services.AddMvc();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conn));
+            services.AddTransient<IVehicleRepository, VehicleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx)
         {
             if (env.IsDevelopment())
             {
@@ -40,11 +57,7 @@ namespace BolindersBil.Web
             //       template: "home/page/{page}",
             //       defaults: new { Controller = "Home", action = "List" });
             //});
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            VehicleSeed.FillIfEmpty(ctx);
         }
     }
 }

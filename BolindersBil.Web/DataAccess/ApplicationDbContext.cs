@@ -9,17 +9,10 @@ namespace BolindersBil.Web.DataAccess
 {
     public class ApplicationDbContext : DbContext
     {
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
-
-
-        DbSet<Vehicle> Vehicles {get;set;}
-        DbSet<Brand> Brands { get; set; }
-        DbSet<Dealership> Dealerships { get; set; }
-        DbSet<VehicleDealership> VehicleDealerships { get; set; }
-
-
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Dealership> Dealerships { get; set; }
     }
+
 }
