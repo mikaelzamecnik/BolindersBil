@@ -1,0 +1,23 @@
+﻿@model ArticlesResult
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>News</h2>
+
+@foreach (var article in Model.Articles)
+{
+    <p>@article.Author</p><br />
+    <p>@article.Title</p>
+    <p>@article.Description</p>
+    <p>@article.PublishedAt</p><br />
+    <hr /><br />
+
+}
+
+
+
+
+
+
