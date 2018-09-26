@@ -30,6 +30,15 @@ namespace BolindersBil.Web
         {
 
             var conn = _configuration.GetConnectionString("BolindersBil");
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            // Add framework services
             services.AddMvc();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conn));
             services.AddTransient<IVehicleRepository, VehicleRepository>();
@@ -43,7 +52,9 @@ namespace BolindersBil.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseMvcWithDefaultRoute();
 
             // Add custom route template
