@@ -30,7 +30,7 @@ namespace BolindersBil.Web.Controllers
             });
 
 
-                return View(articlesResponse.TotalResults);
+                return View(articlesResponse);
 
 
 
