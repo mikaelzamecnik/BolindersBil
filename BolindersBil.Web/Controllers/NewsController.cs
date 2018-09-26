@@ -23,6 +23,7 @@ namespace BolindersBil.Web.Controllers
 
             var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
             {
+                Sources = { "the-new-york-times" },
                 Q = "Apple",
                 SortBy = SortBys.PublishedAt,
                 Language = Languages.EN,

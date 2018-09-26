@@ -4,16 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>News</h2>
+<h2>Nyheter</h2>
 
-@foreach (var article in Model.Articles)
+@foreach (var article in Model.Articles.Take(3))
 {
-    <p>@article.Author</p><br />
-    <p>@article.Title</p>
-    <p>@article.Description</p>
-    <p>@article.PublishedAt</p><br />
-    <hr /><br />
-
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@article.Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@article.Author - <i><small>@article.PublishedAt</small></i></h6>
+            <p class="card-text">@article.Description</p>
+            <a href="@article.Url" target="_blank" class="card-link">Läs mer</a>
+            <br />
+        </div>
+    </div>
+    <br />
 }
 
 
