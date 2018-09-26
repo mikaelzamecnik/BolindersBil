@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Kontakta oss";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-4">
+            Bolinders Bil Jönköping<br />
+            Lovsjövägen 33 Jönköping<br />
+            <strong>Telefon: </strong><a href="tel: +4636123456">036-123456</a>
+            <br />
+            <strong>E-post: </strong> <a href="mailto:jonkoping@bolindersbil.se">jonkoping@bolindersbil.se</a>
+            <br />
+            <br />
+        </div>
+        <div class="col-md-4">
+            Bolinders Bil Värnamo<br />
+            Bultgatan 2 Värnamo<br />
+            <strong>Telefon: </strong><a href="tel: +46370123456">0370-123456</a>
+            <br />
+            <strong>E-post: </strong> <a href="mailto:varnamo@bolindersbil.se">varnamo@bolindersbil.se</a>
+            <br />
+            <br />
+        </div>
+        <div class="col-md-4">
+            Bolinders Bil Göteborg<br />
+            Industrivägen 1 Göteborg<br />
+            <strong>Telefon: </strong><a href="tel: +4631123456">031-123456</a>
+            <br />
+            <strong>E-post: </strong> <a href="mailto:goteborg@bolindersbil.se">goteborg@bolindersbil.se</a>
+            <br />
+            <br />
+        </div>
+
+        <div class="col-md-12">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<br />
+<br />
+<div class="row">
+    <script>
+        function initMap() {
+            var myLatLng = { lat: 57.697770, lng: 14.184420 };
+            var myLating2 = { lat: 57.918940, lng: 12.066450 };
+            var myLating3 = { lat: 57.189060, lng: 14.037122 };
+
+            // Create a map object and specify the DOM element
+            // for display.
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 8
+            });
+
+            // Create a marker and set its position.
+            var marker = new google.maps.Marker({
+                map: map,
+                position: myLatLng,
+                title: 'BolindersBil - Anlägning Jönkoping',
+                url: 'https://goo.gl/maps/R8aL5HBkq132'
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                window.open(marker.url);
+            });
+            var marker2 = new google.maps.Marker({
+                map: map,
+                position: myLating2,
+                title: 'BolindersBil - Anlägning Göteborg',
+                url: 'https://goo.gl/maps/WNFVam65dfC2'
+
+            });
+            google.maps.event.addListener(marker2, 'click', function () {
+                window.open(marker2.url);
+            });
+            var marker3 = new google.maps.Marker({
+                map: map,
+                position: myLating3,
+                title: 'BolindersBil - Anlägning Värnamo',
+                url: 'https://goo.gl/maps/e8BYHiAqFpQ2'
+            });
+            google.maps.event.addListener(marker3, 'click', function () {
+                window.open(marker3.url);
+            });
+        }
+    </script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhSorLtndoX90lRDncEHxwJpa_YSdgjpA&callback=initMap" async defer></script>
+</div>
