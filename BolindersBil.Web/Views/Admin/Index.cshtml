@@ -17,8 +17,8 @@
     <div class="card">
         <div class="card-body">
             <img src="@p.ImageUrl">
-            <p>@p.BrandId @p.Model  @p.ModelDescription</p>
-            <p>@p.Year | @p.Mileage mil | @p.DealerShipId</p>
+            <p>@p.Brand.Name @p.Model  @p.ModelDescription</p>
+            <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
             <h4>@($"{p.Price:C2}")</h4>
         </div>
     </div>
