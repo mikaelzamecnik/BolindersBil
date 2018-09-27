@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Vehicle>
+@{
+    Layout = "_Admin";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="form-group">
+            <label>Sök fordon:</label>
+            <input class="form-control" type="text" placeholder="Sök på version, utrustning, reg-nummer osv." aria-label="Sök">
+        </div>
+        <button class="btn btn-primary" type="submit">Sök</button>
+    </div>
+</div>
+<br />
+@foreach (var p in Model)
+{
+    <div class="card">
+        <div class="card-body">
+            <img src="@p.ImageUrl">
+            <p>@p.BrandId @p.Model  @p.ModelDescription</p>
+            <p>@p.Year | @p.Mileage mil | @p.DealerShipId</p>
+            <h4>@($"{p.Price:C2}")</h4>
+        </div>
+    </div>
+    <br />
+}
+<button class="btn btn-primary" type="submit">Visa fler</button>
