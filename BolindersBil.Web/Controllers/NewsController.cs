@@ -8,18 +8,25 @@ using BolindersBil.Web.Infrastructure;
 using BolindersBil.Web.Models;
 using BolindersBil.Web.Models.NewsModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace BolindersBil.Web.Controllers
 {
     public class NewsController : Controller
     {
 
+        private CustomAppSettings _appSettings;
+
+        public NewsController(IOptions<CustomAppSettings> settings)
+        {
+            _appSettings = settings.Value;
+        }
 
 
         public IActionResult Index(ArticlesResult articlesResult)
         {
 
-            var newsApiClient = new NewsApiClient("e6e66d30aaba4a1b8ad9c4a17a1a4117");
+            var newsApiClient = new NewsApiClient (_appSettings.NewsApiKey, _appSettings.NewsApiUrl);
 
             var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
             {

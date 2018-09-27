@@ -16,7 +16,7 @@ namespace BolindersBil.Web.Infrastructure
     /// </summary>
     public class NewsApiClient
     {
-        private string BASE_URL = "https://newsapi.org/v2/";
+        private string BASE_URL; // Before= "https://newsapi.org/v2/";
 
         private HttpClient HttpClient;
 
@@ -26,8 +26,9 @@ namespace BolindersBil.Web.Infrastructure
         /// Use this to get results from NewsAPI.org.
         /// </summary>
         /// <param name="apiKey">Your News API key. You can create one for free at https://newsapi.org.</param>
-        public NewsApiClient(string apiKey)
+        public NewsApiClient(string apiKey, string base_url)
         {
+            BASE_URL = base_url;
             ApiKey = apiKey;
 
             HttpClient = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
