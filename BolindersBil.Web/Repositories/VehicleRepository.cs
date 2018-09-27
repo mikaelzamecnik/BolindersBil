@@ -1,5 +1,6 @@
 ﻿using BolindersBil.Web.DataAccess;
 using BolindersBil.Web.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace BolindersBil.Web.Repositories
             ctx = context;
         }
 
+        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles.Include(c => c.Brand).Include(d => d.Dealership);
         public IEnumerable<Brand> Brands => ctx.Brands;
         public IEnumerable<Dealership> Dealerships => ctx.Dealerships;
-        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles;
 
         public void SaveVehicle(Vehicle v)
         {
