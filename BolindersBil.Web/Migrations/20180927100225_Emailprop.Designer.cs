@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BolindersBil.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180924113726_FirstSeed")]
-    partial class FirstSeed
+    [Migration("20180927100225_Emailprop")]
+    partial class Emailprop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,8 @@ namespace BolindersBil.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City");
+
+                    b.Property<string>("Email");
 
                     b.Property<string>("Name");
 

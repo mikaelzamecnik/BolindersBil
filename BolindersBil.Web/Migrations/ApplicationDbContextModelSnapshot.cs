@@ -42,6 +42,8 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<string>("City");
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Phone");
@@ -56,6 +58,8 @@ namespace BolindersBil.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Attributes");
 
                     b.Property<string>("Body");
 

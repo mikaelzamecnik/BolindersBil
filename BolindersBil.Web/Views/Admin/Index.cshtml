@@ -22,10 +22,10 @@
                 <img class="img-fluid" src="@p.ImageUrl">
             </div>
             <div class="col-md-8">
-                <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
+                <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i></p>
                 <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
                 <h4>@($"{p.Price:C0}")</h4>
-                <button class="btn btn-primary">Redigera</button>
+                <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
                 <button class="btn btn-danger">Ta bort</button>
             </div>
         </div>

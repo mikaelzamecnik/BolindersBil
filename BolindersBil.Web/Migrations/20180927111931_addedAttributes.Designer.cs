@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BolindersBil.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180924123556_DateTimeChanged")]
-    partial class DateTimeChanged
+    [Migration("20180927111931_addedAttributes")]
+    partial class addedAttributes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,8 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<string>("City");
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Phone");
@@ -58,6 +60,8 @@ namespace BolindersBil.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Attributes");
 
                     b.Property<string>("Body");
 
