@@ -2,15 +2,7 @@
 @{
     Layout = "_Admin";
 }
-<div class="card">
-    <div class="card-body">
-        <div class="form-group">
-            <label>Sök fordon:</label>
-            <input class="form-control" type="text" placeholder="Sök på version, utrustning, reg-nummer osv." aria-label="Sök">
-        </div>
-        <button class="btn btn-primary" type="submit">Sök</button>
-    </div>
-</div>
+<partial name="_SearchPartial" />
 <br />
 @foreach (var p in Model)
 {
