@@ -1,4 +1,5 @@
-﻿using BolindersBil.Web.Models;
+﻿using BolindersBil.Web.Constants.Admin;
+using BolindersBil.Web.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace BolindersBil.Web.ViewModels
         public Vehicle Vehicle { get; set; }
         public List<SelectListItem> Brands { get; set; }
         public List<SelectListItem> DealerShips { get; set; }
+
+        public Transmission Transmission { get; set; }
+
 
 
     }

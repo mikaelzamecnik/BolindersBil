@@ -32,7 +32,7 @@ namespace BolindersBil.Web.Controllers
         // TODO
         /* Make this to a component to prevent DRY.
          * Lambda expression here if we got time over.
-         * 
+         *
          * #param searchString
          */
         public IActionResult Index(string searchString)
@@ -65,24 +65,18 @@ namespace BolindersBil.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int vehicleId)
         {
-            var yearData = from Year e in Enum.GetValues(typeof(Year))
-                           select new
-                           {
-                             ID = (int)e,
-                             Name = e.ToString()
-                           };
+
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
             var vm = new EditVehicleViewModel
             {
                 DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
                 Brands = vehicleRepo.Brands.ToSelectList(vehicle),
-                //Year = new SelectList(yearData, "ID", "Name"),
                 Vehicle = vehicle,
-
             };
             return View(vm);
 
         }
+
 
         [HttpPost]
         public IActionResult Edit(EditVehicleViewModel vm)

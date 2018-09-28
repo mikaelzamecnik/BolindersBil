@@ -5,7 +5,7 @@
 }
 
 <h2>Edit</h2>
-
+@*@Html.DropDownList("yearData", ViewBag.YearList as SelectList)*@
 <form asp-action="Edit" method="post" class="col-md-4">
     <input type="hidden" asp-for="Vehicle.Id" />
     <div class="form-group">
@@ -34,7 +34,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Year"></label>
-        <input asp-for="Vehicle.Year" class="form-control" />
+        <select asp-for="Vehicle.Year" asp-items="Html.GetEnumSelectList<Year>()"  class="form-control" ></select>
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Mileage"></label>
@@ -42,7 +42,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Body"></label>
-        <input asp-for="Vehicle.Body" class="form-control" />
+        <select asp-for="Vehicle.Body" asp-items="Html.GetEnumSelectList<Body>()" class="form-control" ></select>
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Color"></label>
@@ -50,11 +50,11 @@
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Transmission"></label>
-        <input asp-for="Vehicle.Transmission" class="form-control" />
+        <select asp-for="Vehicle.Transmission" asp-items="Html.GetEnumSelectList<Transmission>()" class="form-control" ></select>
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Fuel"></label>
-        <input asp-for="Vehicle.Fuel" class="form-control" />
+        <select asp-for="Vehicle.Fuel" asp-items="Html.GetEnumSelectList<Fuel>()" class="form-control" ></select>
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Horsepower"></label>
@@ -74,7 +74,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.DateUpdated"></label>
-        <input type="datetime" asp-for="Vehicle.DateUpdated" class="form-control" disabled/>
+        <input type="datetime" asp-for="Vehicle.DateUpdated" class="form-control" disabled />
     </div>
     <div class="form-group">
         <label asp-for="Vehicle.Attributes"></label>
