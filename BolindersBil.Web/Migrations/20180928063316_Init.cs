@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BolindersBil.Web.Migrations
 {
-    public partial class Emailprop : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,8 +58,9 @@ namespace BolindersBil.Web.Migrations
                     Used = table.Column<bool>(nullable: false),
                     ImageUrl = table.Column<string>(nullable: true),
                     Lease = table.Column<bool>(nullable: false),
+                    Attributes = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: true),
-                    DateUpdated = table.Column<DateTime>(nullable: true),
+                    DateUpdated = table.Column<DateTime>(nullable: false),
                     BrandId = table.Column<int>(nullable: false),
                     DealerShipId = table.Column<int>(nullable: false)
                 },

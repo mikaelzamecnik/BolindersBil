@@ -69,7 +69,7 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<DateTime?>("DateAdded");
 
-                    b.Property<DateTime?>("DateUpdated");
+                    b.Property<DateTime>("DateUpdated");
 
                     b.Property<int>("DealerShipId");
 
