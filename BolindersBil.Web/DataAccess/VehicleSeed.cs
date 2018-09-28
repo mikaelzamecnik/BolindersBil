@@ -38,7 +38,7 @@ namespace BolindersBil.Web.DataAccess
             {
                 var vehicles = new List<Vehicle>{
                     new Vehicle {Model = "V60", ModelDescription="T4 Business", RegistrationNumber="ABC123", Year = 1998, Mileage = 1342323, Price = 129999, Body="Småbil", Color="Blå", Transmission="Manuell", Fuel="Metangas", Horsepower="199", Used=true, DateAdded=DateTime.Now, DateUpdated=DateTime.Now, ImageUrl="https://via.placeholder.com/350x150", Lease=true, BrandId=1, DealerShipId=2},
-
+                    new Vehicle {Model = "V80", ModelDescription="T4 Business", RegistrationNumber="ABC123", Year = 1998, Mileage = 1342323, Price = 129999, Body="Småbil", Color="Blå", Transmission="Manuell", Fuel="Metangas", Horsepower="199", Used=true, DateAdded=DateTime.Now, DateUpdated=DateTime.Now, ImageUrl="https://via.placeholder.com/350x150", Lease=true, BrandId=1, DealerShipId=2},
                 };
 
                 ctx.Vehicles.AddRange(vehicles);

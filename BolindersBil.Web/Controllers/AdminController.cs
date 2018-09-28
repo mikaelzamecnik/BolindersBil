@@ -16,16 +16,39 @@ namespace BolindersBil.Web.Controllers
             vehicleRepo = vehicleRepository;
         }
 
-        // Lista alla fordon när man går in på /admin
+        /*
+        Lista alla fordon när man går in på /admin
         public IActionResult Index()
         {
             return View(vehicleRepo.Vehicles);
         }
+        */
 
-        // Sök/filtrera efter fordon
-        public IActionResult Search()
+        // TODO
+        /* Make this to a component to prevent DRY.
+         * Lambda expression here if we got time over.
+         * 
+         * #param searchString
+         */
+        public IActionResult Index(string searchString)
         {
-            return View();
+            // LINQ query to select vehicles
+            var vehicles = from v in vehicleRepo.Vehicles 
+                           select v;
+
+            // If the searchstring parameter contains a string the vehicle
+            // query is modified to filter on the value of the search string
+            // TODO
+            /* orderby lambda expression for filter */
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                vehicles = vehicles.Where(s => 
+                    s.Model.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) || 
+                    s.RegistrationNumber.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)
+                );
+            }
+
+            return View(vehicles);
         }
 
         // Redigera fordon
