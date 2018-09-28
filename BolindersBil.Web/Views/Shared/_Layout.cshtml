@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="sv-se">
 <head>
@@ -10,7 +10,6 @@
     <link href="~/lib/bootstrap/scss/custom.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
-
 <body class="bg-light">
     <partial name="_CookieConsentPartial" />
     <header>
@@ -25,28 +24,22 @@
                         <a class="nav-link" href="#">Sök fordon<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-
                         <a class="nav-link" href="#">Nyheter</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Kontakta oss</a>
-
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
-
-
-    <div>
-
-        <div class="container">
-            <br />
-
-            @RenderBody()
-        </div>
+    <partial name="_CookieConsentPartial" />
+    <div class="container">
         <br />
-        <script src="~/lib/jquery/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        @RenderBody()
+    </div>
+    <br />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
