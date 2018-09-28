@@ -1,0 +1,88 @@
+﻿@model EditVehicleViewModel
+@{
+    ViewData["Title"] = "Redigera Fordon";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit" method="post" class="col-md-4">
+    <input type="hidden" asp-for="Vehicle.Id" />
+    <div class="form-group">
+        <label asp-for="Vehicle.Brand"></label>
+        <select asp-for="Vehicle.BrandId" asp-items="Model.Brands" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Model"></label>
+        <input asp-for="Vehicle.Model" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.ModelDescription"></label>
+        <input asp-for="Vehicle.ModelDescription" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Dealership"></label>
+        <select asp-for="Vehicle.DealerShipId" asp-items="Model.DealerShips" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.RegistrationNumber"></label>
+        <input asp-for="Vehicle.RegistrationNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Price"></label>
+        <input asp-for="Vehicle.Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Year"></label>
+        <input asp-for="Vehicle.Year" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Mileage"></label>
+        <input asp-for="Vehicle.Mileage" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Body"></label>
+        <input asp-for="Vehicle.Body" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Color"></label>
+        <input asp-for="Vehicle.Color" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Transmission"></label>
+        <input asp-for="Vehicle.Transmission" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Fuel"></label>
+        <input asp-for="Vehicle.Fuel" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Horsepower"></label>
+        <input asp-for="Vehicle.Horsepower" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Used"></label>
+        <input type="checkbox" asp-for="Vehicle.Used" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.ImageUrl"></label>
+        <textarea asp-for="Vehicle.ImageUrl" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Lease"></label>
+        <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.DateUpdated"></label>
+        <input type="datetime" asp-for="Vehicle.DateUpdated" class="form-control" disabled/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicle.Attributes"></label>
+        <input asp-for="Vehicle.Attributes" class="form-control" />
+    </div>
+    <div class="pull-right">
+        <button class="btn btn-primary" type="submit">Spara</button>
+        <a asp-action="Index" class="btn btn-default">Avbryt</a>
+    </div>
+</form>
+

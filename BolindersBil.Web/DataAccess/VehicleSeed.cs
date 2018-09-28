@@ -37,7 +37,8 @@ namespace BolindersBil.Web.DataAccess
             if (!ctx.Vehicles.Any())
             {
                 var vehicles = new List<Vehicle>{
-                    new Vehicle {Model = "V60", ModelDescription="T4 Business", RegistrationNumber="ABC123", Year = 1998, Mileage = 1342323, Price = 129999, Body="Småbil", Color="Blå", Transmission="Manuell", Fuel="Metangas", Horsepower="199", Used=true, DateAdded=DateTime.Now, DateUpdated=DateTime.Now, ImageUrl="https://via.placeholder.com/350x150", Lease=true, BrandId=1, DealerShipId=2},
+                    new Vehicle {Model = "V60", ModelDescription="T4 Business", RegistrationNumber="ABC123", Year = 1998, Mileage = 1342323, Price = 129999, Body="Småbil", Color="Blå", Transmission="Manuell", Fuel="Metangas", Horsepower="199", Used=true, DateAdded=DateTime.Now, DateUpdated=null, ImageUrl="https://via.placeholder.com/350x150", Lease=true, BrandId=1, DealerShipId=2},
+                    new Vehicle {Model = "M3", ModelDescription="Turbo", RegistrationNumber="CBA321", Year = 1982, Mileage = 45423, Price = 159999, Body="Cab", Color="Rosa", Transmission="Automatisk", Fuel="Bensin", Horsepower="50", Used=false, DateAdded=DateTime.Now,DateUpdated=null, ImageUrl="https://via.placeholder.com/350x150", Lease=false, BrandId=5, DealerShipId=3},
 
                 };
 

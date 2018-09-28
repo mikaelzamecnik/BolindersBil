@@ -25,7 +25,7 @@ namespace BolindersBil.Web.Controllers
 
         public IActionResult Index(ArticlesResult articlesResult)
         {
-
+            //Use appsettings.json to change api url and key
             var newsApiClient = new NewsApiClient (_appSettings.NewsApiKey, _appSettings.NewsApiUrl);
 
             var articlesResponse = newsApiClient.GetEverything(new EverythingRequest

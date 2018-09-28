@@ -2,15 +2,7 @@
 @{
     Layout = "_Admin";
 }
-<div class="card">
-    <div class="card-body">
-        <div class="form-group">
-            <label>Sök fordon:</label>
-            <input class="form-control" type="text" placeholder="Sök på version, utrustning, reg-nummer osv." aria-label="Sök">
-        </div>
-        <button class="btn btn-primary" type="submit">Sök</button>
-    </div>
-</div>
+<partial name="_SearchPartial" />
 <br />
 @foreach (var p in Model)
 {
@@ -21,11 +13,11 @@
             <div class="col-md-4">
                 <img class="img-fluid" src="@p.ImageUrl">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8"><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdated: @p.DateUpdated</small></i></p>
                 <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
                 <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
                 <h4>@($"{p.Price:C0}")</h4>
-                <button class="btn btn-primary">Redigera</button>
+                <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
                 <button class="btn btn-danger">Ta bort</button>
             </div>
         </div>

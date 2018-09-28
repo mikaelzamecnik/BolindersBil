@@ -24,6 +24,7 @@ namespace BolindersBil.Web.Models
         public bool Used { get; set; }
         public string ImageUrl { get; set; }
         public bool Lease { get; set; }
+        public string Attributes { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public int BrandId { get; set; }
