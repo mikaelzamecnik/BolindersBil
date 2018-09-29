@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BolindersBil.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180928063316_Init")]
+    [Migration("20180928124408_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<DateTime?>("DateAdded");
 
-                    b.Property<DateTime>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated");
 
                     b.Property<int>("DealerShipId");
 

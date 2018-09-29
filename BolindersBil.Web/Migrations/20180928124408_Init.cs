@@ -60,7 +60,7 @@ namespace BolindersBil.Web.Migrations
                     Lease = table.Column<bool>(nullable: false),
                     Attributes = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: true),
-                    DateUpdated = table.Column<DateTime>(nullable: false),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
                     BrandId = table.Column<int>(nullable: false),
                     DealerShipId = table.Column<int>(nullable: false)
                 },

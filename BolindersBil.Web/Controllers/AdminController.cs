@@ -72,6 +72,7 @@ namespace BolindersBil.Web.Controllers
                 DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
                 Brands = vehicleRepo.Brands.ToSelectList(vehicle),
                 Vehicle = vehicle,
+                
             };
             return View(vm);
 
