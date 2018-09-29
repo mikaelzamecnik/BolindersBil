@@ -10,6 +10,7 @@ namespace BolindersBil.Web.Models
 
         public CustomAppSettings()
         {
+            //edit values in appsettings.json
             NewsApiUrl = "Http://www.apikeys.nu";
             NewsApiKey = "getyoureownapikey";
         }

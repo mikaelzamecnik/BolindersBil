@@ -13,7 +13,7 @@ namespace BolindersBil.Web.Models
         public string Model { get; set; }
         public string ModelDescription { get; set; }
         public string RegistrationNumber { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public double Mileage { get; set; }
         public decimal Price { get; set; }
         public string Body { get; set; }

@@ -10,32 +10,8 @@ namespace BolindersBil.Web.Infrastructure
 
     public class FilterListItems
     {
-        
-        
 
-
-        //List<object> yearList = new List<object>();
-        // algoritm for the yearmodel of the car
-
-
-
-        //public static FilterListItems()
-        //{
-        //    var body = new List<string>
-        //        {
-        //            "Småbil",
-        //            "Sedan",
-        //            "Halvkombi",
-        //            "Kombi",
-        //            "SUV",
-        //            "Coupé",
-        //            "Cab",
-        //            "Familjebuss",
-        //            "Yrkesfordon"
-        //        };
-        //}
-
-
+        // Adding logic for FIlterlistItems
     }
     
        

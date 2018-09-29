@@ -95,7 +95,7 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<bool>("Used");
 
-                    b.Property<int>("Year");
+                    b.Property<string>("Year");
 
                     b.HasKey("Id");
 

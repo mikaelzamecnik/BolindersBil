@@ -47,7 +47,7 @@ namespace BolindersBil.Web.Migrations
                     Model = table.Column<string>(nullable: true),
                     ModelDescription = table.Column<string>(nullable: true),
                     RegistrationNumber = table.Column<string>(nullable: true),
-                    Year = table.Column<int>(nullable: false),
+                    Year = table.Column<string>(nullable: true),
                     Mileage = table.Column<double>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     Body = table.Column<string>(nullable: true),
