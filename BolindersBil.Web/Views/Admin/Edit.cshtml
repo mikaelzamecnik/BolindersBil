@@ -52,7 +52,7 @@
     </div>
     <div class="form-group">
         <label>Fordonstyp</label>
-        <select asp-for="Vehicle.Body"  asp-items="Html.GetEnumSelectList<Body>()" class="form-control"></select>
+        <select asp-for="Vehicle.Body"  asp-items="FilterListItems.Bodies" class="form-control"></select>
     </div>
     <div class="form-group">
         <label>Färg</label>
