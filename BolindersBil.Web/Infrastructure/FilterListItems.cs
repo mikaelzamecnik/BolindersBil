@@ -10,7 +10,7 @@ namespace BolindersBil.Web.Infrastructure
 
     public static class FilterListItems
     {
-        public static List<SelectListItem> Bodies { get; } = new List<SelectListItem>
+        public static List<SelectListItem> Body { get; } = new List<SelectListItem>
         {
             new SelectListItem { Value = "Småbil", Text = "Småbil" },
             new SelectListItem { Value = "Sedan", Text = "Sedan" },
@@ -22,12 +22,19 @@ namespace BolindersBil.Web.Infrastructure
             new SelectListItem { Value = "Familjebuss", Text = "Familjebuss"  },
             new SelectListItem { Value = "Yrkesfordon", Text = "Yrkesfordon"  },
         };
+        public static List<SelectListItem> Fuel { get; } = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Bensin", Text = "Bensin" },
+            new SelectListItem { Value = "Diesel", Text = "Diesel" },
+            new SelectListItem { Value = "El", Text = "El"  },
+            new SelectListItem { Value = "Miljöbränsle", Text = "Miljöbränsle"  },
+            new SelectListItem { Value = "Hybrid", Text = "Hybrid"  },
+        };
+        public static List<SelectListItem> Transmission { get; } = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Manuell", Text = "Manuell" },
+            new SelectListItem { Value = "Automatisk", Text = "Automatisk" },
+        };
     }
-    
-       
-        
-
-
-
     }
 

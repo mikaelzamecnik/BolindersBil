@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BolindersBil.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180929145121_Init")]
+    [Migration("20181001061624_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
