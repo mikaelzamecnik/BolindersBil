@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vehicle>
+@model IEnumerable<Vehicle>
 @{
     Layout = "_Admin";
 }
@@ -45,6 +45,7 @@
         <button class="btn btn-primary" type="submit">Sök</button>
     </div>
 </div>
+<partial name="_SearchPartial" />
 <br />
 <input type="checkbox" id="checkAll"> Check All
 @foreach (var p in Model)
