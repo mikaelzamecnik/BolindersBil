@@ -32,7 +32,7 @@ namespace BolindersBil.Web.Controllers
         // TODO
         /* Make this to a component to prevent DRY.
          * Lambda expression here if we got time over.
-         * 
+         *
          * #param searchString
          */
         public IActionResult Index(string searchString)
@@ -106,9 +106,33 @@ namespace BolindersBil.Web.Controllers
         }
 
         // Ta bort fordon
-        public IActionResult Delete()
+        [HttpPost]
+        public IActionResult DeleteBulk(string vehiclesIdToDelete)
         {
-            return View();
+            int[] vehiclesIdToDelete2 = Array.ConvertAll(vehiclesIdToDelete.Split(','), int.Parse);
+
+            foreach (var item in vehiclesIdToDelete2)
+            {
+                Delete(item);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Ta bort fordon
+        [HttpPost]
+        public IActionResult Delete(int vehicleId)
+        {
+            var deleted = vehicleRepo.DeleteVehicle(vehicleId);
+            if (deleted != null)
+            {
+                //product was found and deleted
+            }
+            else
+            {
+                //TODO
+                //product was not found - show error
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
