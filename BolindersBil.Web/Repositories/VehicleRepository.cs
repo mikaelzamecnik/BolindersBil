@@ -38,8 +38,9 @@ namespace BolindersBil.Web.Repositories
                         var ctxDealership = ctx.Dealerships.FirstOrDefault(x => x.Id.Equals(v.DealerShipId));
                         if(ctxDealership != null)
                         {
+
                             ctxVehicle.Model = v.Model;
-                            ctxVehicle.ModelDescription = v.Model;
+                            ctxVehicle.ModelDescription = v.ModelDescription;
                             ctxVehicle.RegistrationNumber = v.RegistrationNumber;
                             ctxVehicle.Year = v.Year;
                             ctxVehicle.Mileage = v.Mileage;
@@ -52,6 +53,7 @@ namespace BolindersBil.Web.Repositories
                             ctxVehicle.Used = v.Used;
                             ctxVehicle.Lease = v.Lease;
                             ctxVehicle.ImageUrl = v.ImageUrl;
+                            ctxVehicle.DateUpdated = DateTime.Now;
 
                         ctxVehicle.Dealership = ctxDealership;
                         ctxVehicle.Brand = ctxBrand;
