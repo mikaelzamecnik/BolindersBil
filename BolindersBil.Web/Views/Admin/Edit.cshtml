@@ -141,24 +141,25 @@
         <label>Klicka i rutan om bilen är leasebar</label>
         <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />
     </div>
-    <select id="mySelect" size="8">
-        <option>Apple</option>
-        <option>Pear</option>
-        <option>Banana</option>
-        <option>Orange</option>
-    </select>
+
     <input id="myVal" />
-    <button type="button" onclick="myFunction()">Insert option</button>
-
+        <button type="button" onclick="myFunction()">Insert option</button>
+    <select id="mySelect" size="8">
+            <option>Apple</option>
+            <option>Pear</option>
+            <option>Banana</option>
+            <option>Orange</option>
+        </select>
     <script>
-        function myFunction() {
-            var x = document.getElementById("mySelect");
-            var option = document.createElement("option");
-            option.text = document.getElementsByTagName("myVal");
+            function myFunction() {
+                var x = document.getElementById("mySelect");
+                var option = document.createElement("option");
+                option.text = document.getElementById("myVal".toString());
+                
 
-            x.add(option);
-        }
-    </script>
+                x.add(option);
+            }
+        </script>
     @*<div id="myDIV" class="form-group">
                 <label>Extrautrustning</label>
                 <input type="text" id="myInput" class="form-">

@@ -13,5 +13,6 @@ namespace BolindersBil.Web.ViewModels
         public Vehicle Vehicle { get; set; }
         public List<SelectListItem> Brands { get; set; }
         public List<SelectListItem> DealerShips { get; set; }
+
     }
 }
