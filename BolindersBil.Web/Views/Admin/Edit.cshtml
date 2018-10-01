@@ -3,9 +3,65 @@
     ViewData["Title"] = "Redigera Fordon";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
+<script>
+    // Create a "close" button and append it to each list item
+    //var myNodelist = document.getElementsByTagName("LI");
+    //var i;
+    //for (i = 0; i < myNodelist.length; i++) {
+    //    var span = document.createElement("SPAN");
+    //    var txt = document.createTextNode("\u00D7");
+    //    span.className = "close";
+    //    span.appendChild(txt);
+    //    myNodelist[i].appendChild(span);
+    //}
 
+    // Click on a close button to hide the current list item
+    //var close = document.getElementsByClassName("close");
+    //var i;
+    //for (i = 0; i < close.length; i++) {
+    //    close[i].onclick = function () {
+    //        var div = this.parentElement;
+    //        div.style.display = "none";
+    //    }
+    //}
+
+    // Add a "checked" symbol when clicking on a list item
+    //var list = document.querySelector('ul');
+    //list.addEventListener('click', function (ev) {
+    //    if (ev.target.tagName === 'LI') {
+    //        ev.target.classList.toggle('checked');
+    //    }
+    //}, false);
+
+    // Create a new list item when clicking on the "Add" button
+    //function newElement() {
+    //    var li = document.createElement("LI");
+    //    var inputValue = document.getElementById("myInput").value;
+    //    var t = document.createTextNode(inputValue);
+    //    li.appendChild(t);
+    //    if (inputValue === '') {
+    //        alert("You must write something!");
+    //    } else {
+    //        document.getElementById("myUL").appendChild(li);
+    //    }
+    //    document.getElementById("myInput").value = "";
+
+    //    var span = document.createElement("SPAN");
+    //    var txt = document.createTextNode("\u00D7");
+    //    span.className = "close";
+    //    span.appendChild(txt);
+    //    li.appendChild(span);
+
+    //    for (i = 0; i < close.length; i++) {
+    //        close[i].onclick = function () {
+    //            var div = this.parentElement;
+    //            div.style.display = "none";
+    //        }
+    //    }
+    //}
+
+</script>
 <h2>Edit</h2>
-@*@Html.DropDownList("yearData", ViewBag.YearList as SelectList)*@
 <form asp-action="Edit" method="post" class="col-md-4">
     <input type="hidden" asp-for="Vehicle.Id" />
     <input type="datetime" asp-for="Vehicle.DateUpdated" class="form-control" hidden />
@@ -37,7 +93,7 @@
         <label>Årsmodell</label>
         <select asp-for="Vehicle.Year" class="form-control">
 
-            @for (var i = DateTime.Now.AddYears(+1).Year; i >= 1980 ; i--)
+            @for (var i = DateTime.Now.AddYears(+1).Year; i >= 1980; i--)
 
             {
 
@@ -55,7 +111,7 @@
     </div>
     <div class="form-group">
         <label>Fordonstyp</label>
-        <select asp-for="Vehicle.Body"  asp-items="FilterListItems.Body" class="form-control"></select>
+        <select asp-for="Vehicle.Body" asp-items="FilterListItems.Body" class="form-control"></select>
     </div>
     <div class="form-group">
         <label>Färg</label>
@@ -85,13 +141,33 @@
         <label>Klicka i rutan om bilen är leasebar</label>
         <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>Flera egenskaper</label>
-        <input asp-for="Vehicle.Attributes" class="form-control" />
-    </div>
+    <select id="mySelect" size="8">
+        <option>Apple</option>
+        <option>Pear</option>
+        <option>Banana</option>
+        <option>Orange</option>
+    </select>
+    <input id="myVal" />
+    <button type="button" onclick="myFunction()">Insert option</button>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("mySelect");
+            var option = document.createElement("option");
+            option.text = document.getElementsByTagName("myVal");
+
+            x.add(option);
+        }
+    </script>
+    @*<div id="myDIV" class="form-group">
+                <label>Extrautrustning</label>
+                <input type="text" id="myInput" class="form-">
+                <input type="button" class="btn btn-secondary" value="Lägg till" onclick="newElement()"/>
+            </div>
+        <input id="myUL" />*@
     <div class="pull-right">
         <button class="btn btn-primary" type="submit">Spara</button>
         <a asp-action="Index" class="btn btn-default">Avbryt</a>
     </div>
-</form>
 
+</form>

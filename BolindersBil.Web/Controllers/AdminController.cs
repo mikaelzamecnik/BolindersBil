@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BolindersBil.Web.Constants.Admin;
 using BolindersBil.Web.Infrastructure;
 using BolindersBil.Web.Models;
 using BolindersBil.Web.Repositories;

@@ -1,5 +1,4 @@
-﻿using BolindersBil.Web.Constants.Admin;
-using BolindersBil.Web.Models;
+﻿using BolindersBil.Web.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;

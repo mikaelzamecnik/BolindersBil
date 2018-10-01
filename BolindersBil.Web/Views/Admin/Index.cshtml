@@ -17,13 +17,14 @@
                 <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
                 <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
                 <h4>@($"{p.Price:C0}")</h4>
-                <ul>
+                @*<ul> Testing Attributes output
+
                     @foreach (var a in Model)
                     {
-                        <li>@(a.Attributes.Split('|'))</li>
+                        <li>@a.Attributes</li>
                     }
 
-                </ul>
+                </ul>*@
 
 
                 <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>

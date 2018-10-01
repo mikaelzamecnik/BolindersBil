@@ -1,5 +1,4 @@
-﻿using BolindersBil.Web.Constants.Admin;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace BolindersBil.Web.Infrastructure
 
     public static class FilterListItems
     {
-
 
 
         public static List<SelectListItem> Body { get; } = new List<SelectListItem>
