@@ -40,10 +40,33 @@ namespace BolindersBil.Web.Controllers
             return View();
         }
 
-        // Ta bort fordon
-        public IActionResult Delete()
+        [HttpPost]
+        public IActionResult DeleteBulk(string vehiclesIdToDelete)
         {
-            return View();
+            int[] vehiclesIdToDelete2 = Array.ConvertAll(vehiclesIdToDelete.Split(','), int.Parse);
+
+            foreach (var item in vehiclesIdToDelete2)
+            {
+                Delete(item);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Ta bort fordon
+        [HttpPost]
+        public IActionResult Delete(int vehicleId)
+        {
+            var deleted = vehicleRepo.DeleteVehicle(vehicleId);
+            if (deleted != null)
+            {
+                //product was found and deleted
+            }
+            else
+            {
+                //TODO
+                //product was not found - show error
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
