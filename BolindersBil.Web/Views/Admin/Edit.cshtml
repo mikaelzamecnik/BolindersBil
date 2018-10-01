@@ -36,9 +36,12 @@
     <div class="form-group">
         <label>Årsmodell</label>
         <select asp-for="Vehicle.Year" class="form-control">
-            @for (var i = -1; i < 39; i++)
+
+            @for (var i = DateTime.Now.AddYears(+1).Year; i >= 1980 ; i--)
+
             {
-                <option>@(DateTime.Now.AddYears(-i).Year)</option>
+
+                <option>@i</option>
             }
             <option>70-talet</option>
             <option>60-talet</option>

@@ -65,14 +65,12 @@ namespace BolindersBil.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int vehicleId)
         {
-
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
             var vm = new EditVehicleViewModel
             {
                 DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
                 Brands = vehicleRepo.Brands.ToSelectList(vehicle),
                 Vehicle = vehicle,
-                
             };
             return View(vm);
 

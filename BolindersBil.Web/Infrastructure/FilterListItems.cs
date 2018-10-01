@@ -10,6 +10,9 @@ namespace BolindersBil.Web.Infrastructure
 
     public static class FilterListItems
     {
+
+
+
         public static List<SelectListItem> Body { get; } = new List<SelectListItem>
         {
             new SelectListItem { Value = "Småbil", Text = "Småbil" },
