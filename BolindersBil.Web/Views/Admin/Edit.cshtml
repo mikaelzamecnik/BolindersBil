@@ -5,61 +5,59 @@
 }
 <script>
     // Create a "close" button and append it to each list item
-    //var myNodelist = document.getElementsByTagName("LI");
-    //var i;
-    //for (i = 0; i < myNodelist.length; i++) {
-    //    var span = document.createElement("SPAN");
-    //    var txt = document.createTextNode("\u00D7");
-    //    span.className = "close";
-    //    span.appendChild(txt);
-    //    myNodelist[i].appendChild(span);
-    //}
+    var myNodelist = document.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+    }
 
     // Click on a close button to hide the current list item
-    //var close = document.getElementsByClassName("close");
-    //var i;
-    //for (i = 0; i < close.length; i++) {
-    //    close[i].onclick = function () {
-    //        var div = this.parentElement;
-    //        div.style.display = "none";
-    //    }
-    //}
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
 
     // Add a "checked" symbol when clicking on a list item
-    //var list = document.querySelector('ul');
-    //list.addEventListener('click', function (ev) {
-    //    if (ev.target.tagName === 'LI') {
-    //        ev.target.classList.toggle('checked');
-    //    }
-    //}, false);
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function (ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+        }
+    }, false);
 
     // Create a new list item when clicking on the "Add" button
-    //function newElement() {
-    //    var li = document.createElement("LI");
-    //    var inputValue = document.getElementById("myInput").value;
-    //    var t = document.createTextNode(inputValue);
-    //    li.appendChild(t);
-    //    if (inputValue === '') {
-    //        alert("You must write something!");
-    //    } else {
-    //        document.getElementById("myUL").appendChild(li);
-    //    }
-    //    document.getElementById("myInput").value = "";
+    function newElement() {
 
-    //    var span = document.createElement("SPAN");
-    //    var txt = document.createTextNode("\u00D7");
-    //    span.className = "close";
-    //    span.appendChild(txt);
-    //    li.appendChild(span);
+        var inputValue = document.getElementById("myInput").value;
 
-    //    for (i = 0; i < close.length; i++) {
-    //        close[i].onclick = function () {
-    //            var div = this.parentElement;
-    //            div.style.display = "none";
-    //        }
-    //    }
-    //}
 
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL");
+        }
+        document.getElementById("myInput").value = "";
+
+
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+        var newOne = (inputValue + '|');
+        $('#attrtext').val(newOne);
+    }
 </script>
 <h2>Edit</h2>
 <form asp-action="Edit" method="post" class="col-md-4">
@@ -142,30 +140,32 @@
         <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />
     </div>
 
-    <input id="myVal" />
-        <button type="button" onclick="myFunction()">Insert option</button>
-    <select id="mySelect" size="8">
-            <option>Apple</option>
-            <option>Pear</option>
-            <option>Banana</option>
-            <option>Orange</option>
-        </select>
-    <script>
-            function myFunction() {
-                var x = document.getElementById("mySelect");
-                var option = document.createElement("option");
-                option.text = document.getElementById("myVal".toString());
-                
+    @*<input id="myVal" />
+            <button type="button" onclick="myFunction()">Insert option</button>
+        <select id="mySelect" size="8">
+                <option>Apple</option>
+                <option>Pear</option>
+                <option>Banana</option>
+                <option>Orange</option>
+            </select>
+        <script>
+                function myFunction() {
+                    var x = document.getElementById("mySelect");
+                    var option = document.createElement("option");
+                    option.text = document.getElementById("myVal".toString());
 
-                x.add(option);
-            }
-        </script>
-    @*<div id="myDIV" class="form-group">
-                <label>Extrautrustning</label>
-                <input type="text" id="myInput" class="form-">
-                <input type="button" class="btn btn-secondary" value="Lägg till" onclick="newElement()"/>
-            </div>
-        <input id="myUL" />*@
+
+                    x.add(option);
+                }
+            </script>*@
+    <div id="myDIV">
+        <h2>My To Do List</h2>
+        <input type="text" id="myInput" placeholder="Title...">
+        <span onclick="newElement()" class="btn">Add</span>
+    </div>
+    <input type="text" id="attrtext" asp-for="Vehicle.Attributes" />
+   <br />
+
     <div class="pull-right">
         <button class="btn btn-primary" type="submit">Spara</button>
         <a asp-action="Index" class="btn btn-default">Avbryt</a>
