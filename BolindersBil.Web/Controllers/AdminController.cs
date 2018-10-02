@@ -109,12 +109,16 @@ namespace BolindersBil.Web.Controllers
         [HttpPost]
         public IActionResult DeleteBulk(string vehiclesIdToDelete)
         {
-            int[] vehiclesIdToDelete2 = Array.ConvertAll(vehiclesIdToDelete.Split(','), int.Parse);
-
-            foreach (var item in vehiclesIdToDelete2)
+            if (vehiclesIdToDelete != null)
             {
-                Delete(item);
+                int[] vehiclesIdToDeleteArray = Array.ConvertAll(vehiclesIdToDelete.Split(','), int.Parse);
+
+                foreach (var item in vehiclesIdToDeleteArray)
+                {
+                    Delete(item);
+                }
             }
+
             return RedirectToAction(nameof(Index));
         }
 
