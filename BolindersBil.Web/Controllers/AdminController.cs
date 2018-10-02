@@ -64,8 +64,7 @@ namespace BolindersBil.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int vehicleId)
         {
-            ViewBag.DynDate = "<input type='datetime' asp-for='Vehicle.DateUpdated' class='form - control' hidden />";
-            ViewBag.Heading = "Redigera fordon";
+
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
             var vm = new EditVehicleViewModel
             {
@@ -93,20 +92,36 @@ namespace BolindersBil.Web.Controllers
             }
         }
 
-        // Skapa nytt fordon
+
         [HttpGet]
-        public IActionResult Create(EditVehicleViewModel createdate)
+
+        public IActionResult Create(int vehicleId)
         {
-            ViewBag.DynDate = "<input type='datetime' asp-for='Vehicle.DateAdded' class='form - control' hidden />";
-            ViewBag.Heading = "Skapa nytt fordon";
+            var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
             var vm = new EditVehicleViewModel
             {
-
-                Vehicle = new Vehicle(),
-                Brands = vehicleRepo.Brands.ToSelectList(),
-                DealerShips = vehicleRepo.Dealerships.ToSelectList()
+                DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
+                Brands = vehicleRepo.Brands.ToSelectList(vehicle),
+                Vehicle = vehicle,
             };
-            return View("Edit", vm);
+            return View(vm);
+        }
+
+        // Skapa nytt fordon
+        [HttpPost]
+        public IActionResult Create(EditVehicleViewModel vm)
+        {
+
+            if (ModelState.IsValid)
+            {
+                vm.Vehicle.DateAdded = DateTime.Now;
+                vehicleRepo.SaveVehicle(vm.Vehicle);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(vm);
+            }
         }
 
         // Ta bort fordon

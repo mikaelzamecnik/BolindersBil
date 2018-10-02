@@ -4,7 +4,7 @@
 }
 <partial name="_SearchPartial" />
 <br />
-@foreach (var p in Model.OrderByDescending(p => p.DateAdded))
+@foreach (var p in Model.OrderBy(p => p.DateUpdated))
 {
 <div class="card">
     <div class="card-body">
@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <img class="img-fluid" src="@p.ImageUrl">
             </div>
-            <div class="col-md-8"><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdated: @p.DateUpdated</small></i></p>
+            <div class="col-md-8"><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdaterad: @p.DateUpdated</small></i></p>
                 <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
                 <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
                 <h4>@($"{p.Price:C0}")</h4>

@@ -56,6 +56,7 @@ namespace BolindersBil.Web.Repositories
                             ctxVehicle.Attributes = v.Attributes;
                             ctxVehicle.DateUpdated = DateTime.Now;
 
+
                         ctxVehicle.Dealership = ctxDealership;
                         ctxVehicle.Brand = ctxBrand;
                         }
