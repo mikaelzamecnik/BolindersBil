@@ -4,10 +4,9 @@
 }
 <partial name="_SearchPartial" />
 <br />
-@foreach (var p in Model)
+@foreach (var p in Model.OrderByDescending(p => p.DateAdded))
 {
 <div class="card">
-    @*<img class="card-img-top" src="@p.ImageUrl" />*@
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
@@ -17,16 +16,6 @@
                 <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
                 <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
                 <h4>@($"{p.Price:C0}")</h4>
-                @*<ul> Testing Attributes output
-
-                    @foreach (var a in Model)
-                    {
-                        <li>@a.Attributes</li>
-                    }
-
-                </ul>*@
-
-
                 <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
                 <button class="btn btn-danger">Ta bort</button>
             </div>

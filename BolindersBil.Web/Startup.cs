@@ -60,15 +60,15 @@ namespace BolindersBil.Web
 
             // Add custom route template
 
-            //app.UseMvc(routes =>
-            //{
+            app.UseMvc(routes =>
+            {
 
-            //    routes.MapRoute(
+                routes.MapRoute(
 
-            //       name: "somename",
-            //       template: "home/page/{page}",
-            //       defaults: new { Controller = "Home", action = "List" });
-            //});
+                   name: "Admin",
+                   template: "Admin/{page}",
+                   defaults: new { Controller = "Admin", action = "Create" });
+            });
             VehicleSeed.FillIfEmpty(ctx);
         }
     }

@@ -64,6 +64,8 @@ namespace BolindersBil.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int vehicleId)
         {
+            ViewBag.DynDate = "<input type='datetime' asp-for='Vehicle.DateUpdated' class='form - control' hidden />";
+            ViewBag.Heading = "Redigera fordon";
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
             var vm = new EditVehicleViewModel
             {
@@ -92,9 +94,19 @@ namespace BolindersBil.Web.Controllers
         }
 
         // Skapa nytt fordon
-        public IActionResult Create()
+        [HttpGet]
+        public IActionResult Create(EditVehicleViewModel createdate)
         {
-            return View();
+            ViewBag.DynDate = "<input type='datetime' asp-for='Vehicle.DateAdded' class='form - control' hidden />";
+            ViewBag.Heading = "Skapa nytt fordon";
+            var vm = new EditVehicleViewModel
+            {
+
+                Vehicle = new Vehicle(),
+                Brands = vehicleRepo.Brands.ToSelectList(),
+                DealerShips = vehicleRepo.Dealerships.ToSelectList()
+            };
+            return View("Edit", vm);
         }
 
         // Ta bort fordon
