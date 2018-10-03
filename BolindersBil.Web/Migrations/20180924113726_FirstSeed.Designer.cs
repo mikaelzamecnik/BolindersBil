@@ -4,18 +4,20 @@ using BolindersBil.Web.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BolindersBil.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180924113726_FirstSeed")]
+    partial class FirstSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -42,8 +44,6 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("Phone");
@@ -59,8 +59,6 @@ namespace BolindersBil.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Attributes");
-
                     b.Property<string>("Body");
 
                     b.Property<int>("BrandId");
@@ -69,7 +67,7 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<DateTime?>("DateAdded");
 
-                    b.Property<DateTime>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated");
 
                     b.Property<int>("DealerShipId");
 

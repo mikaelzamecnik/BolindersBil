@@ -1,5 +1,6 @@
 ﻿using BolindersBil.Web.DataAccess;
 using BolindersBil.Web.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace BolindersBil.Web.Repositories
             ctx = context;
         }
 
+        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles.Include(c => c.Brand).Include(d => d.Dealership);
         public IEnumerable<Brand> Brands => ctx.Brands;
         public IEnumerable<Dealership> Dealerships => ctx.Dealerships;
-        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles;
 
         public void SaveVehicle(Vehicle v)
         {
@@ -37,8 +38,9 @@ namespace BolindersBil.Web.Repositories
                         var ctxDealership = ctx.Dealerships.FirstOrDefault(x => x.Id.Equals(v.DealerShipId));
                         if(ctxDealership != null)
                         {
+
                             ctxVehicle.Model = v.Model;
-                            ctxVehicle.ModelDescription = v.Model;
+                            ctxVehicle.ModelDescription = v.ModelDescription;
                             ctxVehicle.RegistrationNumber = v.RegistrationNumber;
                             ctxVehicle.Year = v.Year;
                             ctxVehicle.Mileage = v.Mileage;
@@ -51,6 +53,7 @@ namespace BolindersBil.Web.Repositories
                             ctxVehicle.Used = v.Used;
                             ctxVehicle.Lease = v.Lease;
                             ctxVehicle.ImageUrl = v.ImageUrl;
+                            ctxVehicle.DateUpdated = DateTime.Now;
 
                         ctxVehicle.Dealership = ctxDealership;
                         ctxVehicle.Brand = ctxBrand;
