@@ -53,7 +53,9 @@ namespace BolindersBil.Web.Repositories
                             ctxVehicle.Used = v.Used;
                             ctxVehicle.Lease = v.Lease;
                             ctxVehicle.ImageUrl = v.ImageUrl;
+                            ctxVehicle.Attributes = v.Attributes;
                             ctxVehicle.DateUpdated = DateTime.Now;
+
 
                         ctxVehicle.Dealership = ctxDealership;
                         ctxVehicle.Brand = ctxBrand;
