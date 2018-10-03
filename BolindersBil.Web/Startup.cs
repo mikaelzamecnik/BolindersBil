@@ -30,9 +30,19 @@ namespace BolindersBil.Web
         {
 
             var conn = _configuration.GetConnectionString("BolindersBil");
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            // Add framework services
             services.AddMvc();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conn));
             services.AddTransient<IVehicleRepository, VehicleRepository>();
+            services.Configure<CustomAppSettings>(_configuration.GetSection("CustomAppSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,20 +53,22 @@ namespace BolindersBil.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseMvcWithDefaultRoute();
 
             // Add custom route template
 
-            //app.UseMvc(routes =>
-            //{
+            app.UseMvc(routes =>
+            {
 
-            //    routes.MapRoute(
+                routes.MapRoute(
 
-            //       name: "somename",
-            //       template: "home/page/{page}",
-            //       defaults: new { Controller = "Home", action = "List" });
-            //});
+                   name: "Admin",
+                   template: "Admin/{page}",
+                   defaults: new { Controller = "Admin", action = "Create" });
+            });
             VehicleSeed.FillIfEmpty(ctx);
         }
     }

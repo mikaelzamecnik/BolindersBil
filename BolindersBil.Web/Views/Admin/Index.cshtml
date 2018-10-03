@@ -2,26 +2,74 @@
 @{
     Layout = "_Admin";
 }
-<div class="card">
-    <div class="card-body">
-        <div class="form-group">
-            <label>Sök fordon:</label>
-            <input class="form-control" type="text" placeholder="Sök på version, utrustning, reg-nummer osv." aria-label="Sök">
-        </div>
-        <button class="btn btn-primary" type="submit">Sök</button>
-    </div>
-</div>
+<script>
+
+
+    $(document).ready(function () {
+
+        $('#checkAll').click(function () {
+            $('input:checkbox').prop('checked', this.checked);
+        });
+
+        $("#deleteBulk").click(function () {
+            getValueUsingParentTag();
+        });
+
+        function getValueUsingParentTag() {
+            var chkArray = [];
+
+            /* look for all checkboxes in .cards and check if they are checked, and then take their values and push into an array */
+            $(".card input:checked").each(function () {
+                chkArray.push($(this).val());
+            });
+
+            /* join the array separated by the comma */
+            var selected;
+            selected = chkArray.join(',');
+
+            /* add selected value to hidden fields if it contains values */
+            if (selected.length > 0) {
+                $("#vehiclesIdToDelete").val(selected);
+            } else {
+                alert("Markera åtminstone ett fordon");
+            }
+        }
+    });
+
+</script>
+<partial name="_SearchPartial" />
 <br />
-@foreach (var p in Model)
+<input type="checkbox" id="checkAll"> Check All
+@foreach (var p in Model.OrderBy(p => p.DateUpdated))
 {
     <div class="card">
         <div class="card-body">
-            <img src="@p.ImageUrl">
-            <p>@p.BrandId @p.Model  @p.ModelDescription</p>
-            <p>@p.Year | @p.Mileage mil | @p.DealerShipId</p>
-            <h4>@($"{p.Price:C2}")</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid" src="@p.ImageUrl">
+                </div>
+                <div class="col-md-8"><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdaterad: @p.DateUpdated</small></i></p>
+                                      <form asp-action="Delete" onsubmit="return confirm('Vill du verkligen ta bort fordonet?')" method="post">
+                                          <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
+                                          <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
+                                          <h4>@($"{p.Price:C0}")</h4>
+                                          <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
+                                          <input type="hidden" name="vehicleID" value="@p.Id" />
+                                          <button type="submit" class="btn btn-danger">Ta bort</button>
+                                          <div class="form-check">
+                                              <input type="checkbox" class="form-check-input" name="deleteVehicleId" value="@p.Id">
+                                              <label class="form-check-label" for="deleteVehicle">Markera fordon</label>
+                                          </div>
+                                      </form>
+                </div>
+            </div>
         </div>
     </div>
     <br />
 }
 <button class="btn btn-primary" type="submit">Visa fler</button>
+
+<form asp-action="DeleteBulk" onsubmit="return confirm('Vill du verkligen ta bort fordonen?')" method="post">
+    <input type="hidden" id="vehiclesIdToDelete" name="vehiclesIdToDelete" />
+    <button type="submit" class="btn btn-danger" id="deleteBulk">Ta bort markerade fordon</button>
+</form>

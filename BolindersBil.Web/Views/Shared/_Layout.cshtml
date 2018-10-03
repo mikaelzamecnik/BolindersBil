@@ -19,25 +19,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Sök fordon<span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home">Sök fordon</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nyheter</a>
+                        <a class="nav-link" href="/News">Nyheter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kontakta oss</a>
+                        <a class="nav-link" href="/Contact">Kontakta oss</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
+    <partial name="_CookieConsentPartial" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <div class="container">
         <br />
         @RenderBody()
     </div>
     <br />
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+﻿@model EditVehicleViewModel
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h2>@ViewBag.Heading</h2>
+<form asp-action="Edit" method="post" class="col-md-4">
+    <input type="hidden" asp-for="Vehicle.Id" />
+    <input type="hidden" asp-for="Vehicle.DateUpdated" />
+    <partial name="_AddEditForm" />
+</form>

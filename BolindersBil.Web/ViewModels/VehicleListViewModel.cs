@@ -8,8 +8,8 @@ namespace BolindersBil.Web.ViewModels
 {
     public class VehicleListViewModel
     {
-        public Vehicle Vehicle { get; set; }
-        public Brand Brand { get; set; }
-        public Dealership Dealership { get; set; }
+        public IEnumerable<Vehicle> Vehicles { get; set; }
+        public bool ShowButton { get; set; }
+        public int NextPage { get; set; }
     }
 }

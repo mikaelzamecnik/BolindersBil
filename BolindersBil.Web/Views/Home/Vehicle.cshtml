@@ -1,0 +1,25 @@
+﻿@model Vehicle
+
+@{
+    ViewData["Title"] = "ViewVehicle";
+}
+
+<h2>@Model.Brand.Name @Model.Model  @Model.ModelDescription</h2>
+<div class="card">
+    <div class="card-body">
+        <img class="img-fluid" src="@Model.ImageUrl">
+        <h4>Pris: @($"{Model.Price:C0}")</h4>
+        <strong>Årsmodell:</strong> @Model.Year<br />
+        <strong>Kilometer:</strong> @Model.Mileage<br />
+        <strong>Registreringsnummer:</strong> @Model.RegistrationNumber<br />
+        <strong>Karosstyp:</strong> @Model.Body<br />
+        <strong>Färg:</strong> @Model.Color<br />
+        <strong>Växellådstyp:</strong> @Model.Transmission<br />
+        <strong>Bränsletyp:</strong> @Model.Fuel<br />
+        <strong>Hästkrafter:</strong> @Model.Horsepower<br />
+        <strong>Begagnad:</strong> @Model.Used<br />
+        <strong>Anläggning:</strong> @Model.Dealership.City<br />
+        <strong>Leasbar för företag:</strong> @Model.Lease<br />
+        <strong>Pipe-separerad attributlista:</strong> @Model.Attributes<br />
+    </div>
+</div>

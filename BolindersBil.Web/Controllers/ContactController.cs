@@ -8,11 +8,11 @@ using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
 
+
 namespace BolindersBil.Web.Controllers
 {
     public class ContactController : Controller
-    {
-       
+    {  
         public ViewResult Index()
         {
             return View();
@@ -42,7 +42,6 @@ namespace BolindersBil.Web.Controllers
             ModelState.Clear();
             return View("Index");
         }
-
 
     }
 }
