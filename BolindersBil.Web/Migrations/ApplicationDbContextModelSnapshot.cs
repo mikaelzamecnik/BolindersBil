@@ -53,6 +53,27 @@ namespace BolindersBil.Web.Migrations
                     b.ToTable("Dealerships");
                 });
 
+            modelBuilder.Entity("BolindersBil.Web.Models.FileUpload", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FilePath");
+
+                    b.Property<string>("FileTitle");
+
+                    b.Property<string>("Suffix");
+
+                    b.Property<int>("VehicleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("FileUploads");
+                });
+
             modelBuilder.Entity("BolindersBil.Web.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
@@ -69,9 +90,11 @@ namespace BolindersBil.Web.Migrations
 
                     b.Property<DateTime?>("DateAdded");
 
-                    b.Property<DateTime>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated");
 
                     b.Property<int>("DealerShipId");
+
+                    b.Property<int>("FileUploadId");
 
                     b.Property<string>("Fuel");
 
@@ -104,6 +127,14 @@ namespace BolindersBil.Web.Migrations
                     b.HasIndex("DealerShipId");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("BolindersBil.Web.Models.FileUpload", b =>
+                {
+                    b.HasOne("BolindersBil.Web.Models.Vehicle", "Vehicle")
+                        .WithMany("FileUpload")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BolindersBil.Web.Models.Vehicle", b =>

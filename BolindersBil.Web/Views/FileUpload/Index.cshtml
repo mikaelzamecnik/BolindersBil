@@ -1,0 +1,32 @@
+﻿@model IEnumerable<FileUpload>
+@{
+    ViewData["Title"] = "FileUpload";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Image Id</th>
+            <th scope="col">image</th>
+            <th scope="col">File title</th>
+            <th scope="col">suffix</th>
+            <th scope="col">vehicle regnr</th>
+            <th scope="col">vehicle Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var image in Model)
+        {
+        <tr>
+            <td>@image.Id</td>
+            <td><img src="@image.FilePath/@image.FileTitle.@image.Suffix" style="width:50px;" /></td>
+            <td>@image.FileTitle</td>
+            <td>@image.Suffix</td>
+            <td>@image.Vehicle.RegistrationNumber</td>
+            <td>@image.VehicleId</td>
+        </tr>
+        }
+    </tbody>
+</table>

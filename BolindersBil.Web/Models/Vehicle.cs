@@ -31,6 +31,14 @@ namespace BolindersBil.Web.Models
         public virtual Brand Brand { get; set; }
         public int DealerShipId { get; set; }
         public virtual Dealership Dealership { get; set; }
+        public int FileUploadId { get; set; }
+        public virtual List<FileUpload> FileUpload { get; set; }
+
+        //public Vehicle()
+        //{
+        //    var Vehicle = new FileUpload();
+        //}
+
 
     }
 }

@@ -6,23 +6,57 @@
 <br />
 @foreach (var p in Model)
 {
-<div class="card">
-    @*<img class="card-img-top" src="@p.ImageUrl" />*@
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <img class="img-fluid" src="@p.ImageUrl">
+    <div class="card">
+        @*<img class="card-img-top" src="@p.ImageUrl" />*@
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid" src="@p.ImageUrl">
+                </div>
+                <div class="col-md-8">
+                    <p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdated: @p.DateUpdated</small></i></p>
+                    <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
+                    <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
+                    <h4>@($"{p.Price:C0}")</h4>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
+                    <button class="btn btn-danger">Ta bort</button>
+                    @*<form action="/file-upload" class="dropzone" id="uploadImage">
+            <div class="fallback">
+                <input name="file" type="file" multiple />
             </div>
-            <div class="col-md-8"><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdated: @p.DateUpdated</small></i></p>
-                <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
-                <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
-                <h4>@($"{p.Price:C0}")</h4>
-                <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
-                <button class="btn btn-danger">Ta bort</button>
+        </form>*@
+                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Lägg upp bild</a>
+                    @*<h2>FileUpload Id: @p.FileUploadId</h2>*@
+                    @*<p>@p.FileUpload.</p>*@
+                </div>
             </div>
         </div>
     </div>
-</div>
     <br />
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ladda up bild</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-controller="Admin" asp-action="FileUpload" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="file" name="image"/>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                        <button type="submit" class="btn btn-primary">Ladda upp</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 }
+
 <button class="btn btn-primary" type="submit">Visa fler</button>

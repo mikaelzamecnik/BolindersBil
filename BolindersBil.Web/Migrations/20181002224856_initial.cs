@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BolindersBil.Web.Migrations
 {
-    public partial class Init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,9 +60,10 @@ namespace BolindersBil.Web.Migrations
                     Lease = table.Column<bool>(nullable: false),
                     Attributes = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: true),
-                    DateUpdated = table.Column<DateTime>(nullable: false),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
                     BrandId = table.Column<int>(nullable: false),
-                    DealerShipId = table.Column<int>(nullable: false)
+                    DealerShipId = table.Column<int>(nullable: false),
+                    FileUploadId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,6 +82,33 @@ namespace BolindersBil.Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FileUploads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FileTitle = table.Column<string>(nullable: true),
+                    Suffix = table.Column<string>(nullable: true),
+                    FilePath = table.Column<string>(nullable: true),
+                    VehicleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileUploads", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FileUploads_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileUploads_VehicleId",
+                table: "FileUploads",
+                column: "VehicleId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_BrandId",
                 table: "Vehicles",
@@ -94,6 +122,9 @@ namespace BolindersBil.Web.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FileUploads");
+
             migrationBuilder.DropTable(
                 name: "Vehicles");
 

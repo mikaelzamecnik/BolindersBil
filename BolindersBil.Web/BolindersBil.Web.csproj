@@ -5,11 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\pic\**" />
+    <Content Remove="wwwroot\pic\**" />
+    <EmbeddedResource Remove="wwwroot\pic\**" />
+    <None Remove="wwwroot\pic\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewComponents\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="dropzone" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>

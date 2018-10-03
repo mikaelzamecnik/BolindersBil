@@ -1,33 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BolindersBil.Web.Constants.Admin;
+using BolindersBil.Web.DataAccess;
 using BolindersBil.Web.Infrastructure;
 using BolindersBil.Web.Models;
 using BolindersBil.Web.Repositories;
 using BolindersBil.Web.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace BolindersBil.Web.Controllers
 {
     public class AdminController : Controller
     {
         private IVehicleRepository vehicleRepo;
+        private readonly IHostingEnvironment _appEnvironment;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(IVehicleRepository vehicleRepository)
+        public AdminController(IVehicleRepository vehicleRepository, IHostingEnvironment appEnvironment, ApplicationDbContext context)
         {
             vehicleRepo = vehicleRepository;
+            _appEnvironment = appEnvironment;
+            _context = context;
         }
 
-        /*
-        Lista alla fordon när man går in på /admin
-        public IActionResult Index()
+
+        //Lista alla fordon när man går in på /admin
+        //public IActionResult Index()
+        //{
+        //    return View(vehicleRepo.Vehicles);
+        //}
+
+        public string Test()
         {
-            return View(vehicleRepo.Vehicles);
+            return "Hello world";
         }
-        */
+
+
+        // Save to disk
+        [HttpPost]
+        public IActionResult FileUpload(IFormFile image)
+        {
+            if(image != null)
+            {
+                var fileName = Path.Combine(_appEnvironment.WebRootPath + "/Images", Path.GetFileName(image.FileName));
+                image.CopyTo(new FileStream(fileName, FileMode.Create));
+                ViewData["fileLocation"] = "/Images/" + Path.GetFileName(image.FileName);
+            }
+            return View();
+        }
+
 
         // TODO
         /* Make this to a component to prevent DRY.
@@ -55,6 +83,7 @@ namespace BolindersBil.Web.Controllers
 
             return View(vehicles);
         }
+
         // Sök/filtrera efter fordon
         public IActionResult Search()
         {
@@ -110,5 +139,27 @@ namespace BolindersBil.Web.Controllers
         {
             return View();
         }
+
+ 
+        //public IActionResult GetImagesToVehicle(int id)
+        //{
+
+            //var fileUpload = _context.Vehicles.Include(f => f.FileUpload).Where(f => f.Id == id);
+            //var vm = new VehicleFileUploadViewModel
+            //{
+            //    VehicleId = id,
+            //    FileUpload = fileUpload
+            //};
+            //var fileUploads = _context.FileUploads
+            //    .Include(v => v.VehicleId)
+            //    .ToList();
+            //Vehicle vehicle = _context.Vehicles
+            //    .Include(v => v.FileUpload)
+            //    .Single(v => v.Id == fileUploadId);
+
+            //IList<FileUpload> fileUploads = _context.FileUploads.Where(v => v.Id == id).ToList();
+
+            //return View("Index", vm);
+        //}
     }
 }

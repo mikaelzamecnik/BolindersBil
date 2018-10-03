@@ -13,6 +13,13 @@
       "files": [
         "jquery.min.js"
       ]
+    },
+    {
+      "library": "dropzone@4.2.0",
+      "destination": "wwwroot/lib/dropzone/",
+      "files": [
+        "dropzone.js"
+      ]
     }
   ]
 }

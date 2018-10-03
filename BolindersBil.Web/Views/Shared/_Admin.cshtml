@@ -9,6 +9,8 @@
     <title>@ViewBag.Title</title>
     <link href="~/lib/bootstrap/scss/custom.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    @*<link href="dropzone/dropzone.css" rel="stylesheet" type="text/css" />*@
+    
 </head>
 <body class="bg-light">
     <header>
@@ -39,5 +41,27 @@
     <br />
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    @*<script src="~/lib/dropzone/min/dropzone.min.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            //console.log("hej");
+            $.get("FileUpload/GetVehicles", function (data) {
+                console.log(data);
+            });
+            //$("#uploadImage").dropzone(
+
+            //    //{ url: "/Admin/FileUpload" }
+            //    $.get("Admin/FileUpload", function (data) {
+
+            //        console.log(data);
+            //    })
+            //);
+            var test = $(".carousel-inner").children();
+            console.log(test);
+        });
+
+            
+
+    </script>
 </body>
 </html>
