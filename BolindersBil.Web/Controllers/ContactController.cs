@@ -21,7 +21,7 @@ namespace BolindersBil.Web.Controllers
         public IActionResult SendMail (string name, string title, string email, string msg, string dealershipEmail)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("sankec@hotmail.com"));
+            message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
             message.To.Add(new MailboxAddress (dealershipEmail)); 
 
             message.Subject = title;
@@ -35,7 +35,7 @@ namespace BolindersBil.Web.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.office365.com", 587);
-                client.Authenticate("sankec@hotmail.com", "okanoviic0702");
+                client.Authenticate("bolindersbil@hotmail.com", "123456wu17");
                 client.Send(message);
                 client.Disconnect(true);
             }
