@@ -49,17 +49,18 @@
                     <img class="img-fluid" src="@p.ImageUrl">
                 </div>
                 <div class="col-md-8"><p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdaterad: @p.DateUpdated</small></i></p>
-                    <form asp-action="Delete" onsubmit="return confirm('Vill du verkligen ta bort fordonet?')" method="post">
-                        <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
-                        <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
-                        <h4>@($"{p.Price:C0}")</h4>
-                        <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
-                        <button type="submit" class="btn btn-danger">Ta bort</button>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="deleteVehicleId" value="@p.Id">
-                            <label class="form-check-label" for="deleteVehicle">Markera fordon</label>
-                        </div>
-                    </form>
+                                      <form asp-action="Delete" onsubmit="return confirm('Vill du verkligen ta bort fordonet?')" method="post">
+                                          <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
+                                          <p>@p.Year | @p.Mileage mil | @p.Dealership.City</p>
+                                          <h4>@($"{p.Price:C0}")</h4>
+                                          <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
+                                          <input type="hidden" name="vehicleID" value="@p.Id" />
+                                          <button type="submit" class="btn btn-danger">Ta bort</button>
+                                          <div class="form-check">
+                                              <input type="checkbox" class="form-check-input" name="deleteVehicleId" value="@p.Id">
+                                              <label class="form-check-label" for="deleteVehicle">Markera fordon</label>
+                                          </div>
+                                      </form>
                 </div>
             </div>
         </div>
