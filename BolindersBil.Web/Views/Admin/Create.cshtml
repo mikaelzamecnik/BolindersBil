@@ -1,0 +1,9 @@
+﻿@model EditVehicleViewModel
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h2>Skapa nytt fordon</h2>
+<form asp-action="Create" method="post" class="col-md-4">
+    <input type="hidden" asp-for="Vehicle.DateAdded" />
+    <partial name="_AddEditForm" />
+</form>

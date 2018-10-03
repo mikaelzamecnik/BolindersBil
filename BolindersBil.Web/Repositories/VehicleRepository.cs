@@ -17,10 +17,9 @@ namespace BolindersBil.Web.Repositories
             ctx = context;
         }
 
-        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles.Include(c => c.Brand).Include(d => d.Dealership).Include(f => f.FileUpload);
+        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles.Include(c => c.Brand).Include(d => d.Dealership);
         public IEnumerable<Brand> Brands => ctx.Brands;
         public IEnumerable<Dealership> Dealerships => ctx.Dealerships;
-        public IEnumerable<FileUpload> FileUploads => ctx.FileUploads;
 
         public void SaveVehicle(Vehicle v)
         {
@@ -37,9 +36,9 @@ namespace BolindersBil.Web.Repositories
                     if (ctxBrand != null)
                     {
                         var ctxDealership = ctx.Dealerships.FirstOrDefault(x => x.Id.Equals(v.DealerShipId));
-                        if (ctxDealership != null)
+                        if(ctxDealership != null)
                         {
-                            
+
                             ctxVehicle.Model = v.Model;
                             ctxVehicle.ModelDescription = v.ModelDescription;
                             ctxVehicle.RegistrationNumber = v.RegistrationNumber;
@@ -54,15 +53,15 @@ namespace BolindersBil.Web.Repositories
                             ctxVehicle.Used = v.Used;
                             ctxVehicle.Lease = v.Lease;
                             ctxVehicle.ImageUrl = v.ImageUrl;
+                            ctxVehicle.Attributes = v.Attributes;
                             ctxVehicle.DateUpdated = DateTime.Now;
 
-                            ctxVehicle.Dealership = ctxDealership;
-                            ctxVehicle.Brand = ctxBrand;
 
+                        ctxVehicle.Dealership = ctxDealership;
+                        ctxVehicle.Brand = ctxBrand;
                         }
 
                     }
-                    
                 }
             }
             ctx.SaveChanges();

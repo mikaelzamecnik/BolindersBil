@@ -9,8 +9,6 @@
     <title>@ViewBag.Title</title>
     <link href="~/lib/bootstrap/scss/custom.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    @*<link href="dropzone/dropzone.css" rel="stylesheet" type="text/css" />*@
-    
 </head>
 <body class="bg-light">
     <header>
@@ -22,10 +20,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Sök fordon<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/admin">Sök fordon<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Lägg till fordon</a>
+                        <a class="nav-link" href="/admin/create">Lägg till fordon</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Logga ut</a>
@@ -34,34 +32,14 @@
             </div>
         </nav>
     </header>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/EditAttributeList.js"></script>
     <div class="container">
         <br />
         @RenderBody()
     </div>
     <br />
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    @*<script src="~/lib/dropzone/min/dropzone.min.js"></script>*@
-    <script>
-        $(document).ready(function () {
-            //console.log("hej");
-            $.get("FileUpload/GetVehicles", function (data) {
-                console.log(data);
-            });
-            //$("#uploadImage").dropzone(
 
-            //    //{ url: "/Admin/FileUpload" }
-            //    $.get("Admin/FileUpload", function (data) {
-
-            //        console.log(data);
-            //    })
-            //);
-            var test = $(".carousel-inner").children();
-            console.log(test);
-        });
-
-            
-
-    </script>
 </body>
 </html>

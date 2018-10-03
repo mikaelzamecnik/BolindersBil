@@ -14,8 +14,5 @@ namespace BolindersBil.Web.ViewModels
         public List<SelectListItem> Brands { get; set; }
         public List<SelectListItem> DealerShips { get; set; }
 
-        //public List<FileUpload> FileUploads { get; set; }
-
-
     }
 }
