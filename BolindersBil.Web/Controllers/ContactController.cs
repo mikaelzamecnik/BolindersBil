@@ -5,12 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MailKit.Net.Smtp;
 using MimeKit;
-
+using BolindersBil.Web.Models;
+using Microsoft.Extensions.Options;
 
 namespace BolindersBil.Web.Controllers
 {
     public class ContactController : Controller
     {
+        private CustomAppSettings _appSettings;
+
+        public ContactController(IOptions<CustomAppSettings> settings)
+        {
+            _appSettings = settings.Value;
+        }
         public ViewResult Index()
         {
             return View();
@@ -32,8 +39,8 @@ namespace BolindersBil.Web.Controllers
 
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.office365.com", 587);
-                client.Authenticate("bolindersbil@hotmail.com", "123456wu17");
+                client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
+                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
                 client.Send(message);
                 client.Disconnect(true);
             }
