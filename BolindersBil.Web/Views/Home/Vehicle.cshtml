@@ -4,7 +4,8 @@
     ViewData["Title"] = "ViewVehicle";
 }
 
-<h2>@Model.Brand.Name @Model.Model  @Model.ModelDescription</h2>
+@Model.Brand.Name
+@*<h2>@Model.Brand.Name @Model.Vehicle.Model  @Model.ModelDescription</h2>
 <div class="card">
     <div class="card-body">
         <img class="img-fluid" src="@Model.ImageUrl">
@@ -31,8 +32,14 @@
             }
             else
             {
-            <li>Ingen Extrautrustning</li>
+                <li>Ingen Extrautrustning</li>
             }
-        </ul>
-</div>
-</div>
+        </ul><br />*@
+                 <div class="form-inline">
+                     <form asp-action="SendLink" asp-controller="Home" method="post">
+                         <input asp-for="SendMail" type="email" placeholder="Skriv in e-postadressen..." class="form-control mr-1" />
+                         <input asp-for="Url" type="hidden" id="UrlAdvert" value="test" /><button type="submit" class="btn btn-info">Skicka Annonslänk</button>
+                     </form>
+                 </div>
+        @*</div>
+    </div>*@

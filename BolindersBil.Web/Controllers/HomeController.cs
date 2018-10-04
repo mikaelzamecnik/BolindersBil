@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using BolindersBil.Web.Models;
 using BolindersBil.Web.Repositories;
 using BolindersBil.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MailKit.Net.Smtp;
+using MimeKit;
+using System.Web.Http;
 
 namespace BolindersBil.Web.Controllers
 {
@@ -12,10 +18,12 @@ namespace BolindersBil.Web.Controllers
     {
         private IVehicleRepository vehicleRepo;
         public int PageLimit = 8;
+        private CustomAppSettings _appSettings;
 
-        public HomeController(IVehicleRepository vehicleRepository)
+        public HomeController(IVehicleRepository vehicleRepository,IOptions<CustomAppSettings> settings)
         {
             vehicleRepo = vehicleRepository;
+            _appSettings = settings.Value;
         }
 
         public IActionResult Index(string searchString, int page = 1)
@@ -64,6 +72,7 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
+
             return View(vehicle);
         }
 
@@ -74,6 +83,30 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Contact()
         {
 
+            return View();
+        }
+        public IActionResult SendLink(string url, string sendmail)
+        {
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
+            message.To.Add(new MailboxAddress(sendmail));
+
+            message.Subject = "Här kommer din drömbil från BolindersBil";
+            message.Body = new TextPart("html")
+            {
+                Text = "<h6><strong>BolindersBil</strong></h2>" + "<br>" +
+                $"<a href='{url}' target='_blank'>{url}</a>"
+            };
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
+                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+            ModelState.Clear();
             return View();
         }
     }
