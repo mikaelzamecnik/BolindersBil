@@ -20,6 +20,19 @@
         <strong>Begagnad:</strong> @Model.Used<br />
         <strong>Anläggning:</strong> @Model.Dealership.City<br />
         <strong>Leasbar för företag:</strong> @Model.Lease<br />
-        <strong>Pipe-separerad attributlista:</strong> @Model.Attributes<br />
-    </div>
+        <strong>Extrautrustning:</strong><br />
+        <ul>
+            @if (Model.Attributes != null)
+            {
+                @foreach (var att in Model.Attributes.Split("|").SkipLast(1))
+                {
+                    <li>@att</li>
+                }
+            }
+            else
+            {
+            <li>Ingen Extrautrustning</li>
+            }
+        </ul>
+</div>
 </div>
