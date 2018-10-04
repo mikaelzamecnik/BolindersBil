@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System.Web.Http;
+using BolindersBil.Web.Infrastructure;
 
 namespace BolindersBil.Web.Controllers
 {
@@ -72,42 +73,45 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
+            var vm = new SingleVehicleViewModel
+            {
+                DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
+                Brands = vehicleRepo.Brands.ToSelectList(vehicle),
+                Vehicle = vehicle
 
-            return View(vehicle);
+            };
+
+            return View(vm);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        public IActionResult Contact()
-        {
-
-            return View();
-        }
-        public IActionResult SendLink(string url, string sendmail)
+        public IActionResult SendLink(SingleVehicleViewModel model)
         {
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
-            message.To.Add(new MailboxAddress(sendmail));
+            
+                message.To.Add(new MailboxAddress(model.SendMail));
+                message.Subject = "Här kommer din drömbil från BolindersBil";
+                //model.Url = HttpContext.Request.PathBase;
+                message.Body = new TextPart("html")
+                {
+                    Text = "<h6><strong>BolindersBil</strong></h2>" + "<br>" +
+                    $"<a href='{model.Url}' target='_blank'>{model.Url}</a>"
+                };
 
-            message.Subject = "Här kommer din drömbil från BolindersBil";
-            message.Body = new TextPart("html")
-            {
-                Text = "<h6><strong>BolindersBil</strong></h2>" + "<br>" +
-                $"<a href='{url}' target='_blank'>{url}</a>"
-            };
-
-            using (var client = new MailKit.Net.Smtp.SmtpClient())
-            {
-                client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
-                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
-                client.Send(message);
-                client.Disconnect(true);
-            }
-            ModelState.Clear();
-            return View();
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
+                    client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+                ModelState.Clear();
+            //Need to redirect on the same page... Vehicle/vehicie/id
+                return View(model);
+            //Todo Need a failsave if input value = empty
+            //else { ModelState.Clear(); return RedirectToRoute(); }
+          
         }
     }
 }
