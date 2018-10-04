@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BolindersBil.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
 
 

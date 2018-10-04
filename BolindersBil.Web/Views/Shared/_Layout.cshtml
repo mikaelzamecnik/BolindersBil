@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@ViewBag.Title</title>
-    <link href="~/lib/bootstrap/scss/custom.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/scss/custom.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body class="bg-light">
@@ -35,6 +35,8 @@
     <partial name="_CookieConsentPartial" />
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/GoogleGeoCode.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhSorLtndoX90lRDncEHxwJpa_YSdgjpA&callback=initMap" async defer></script>
     <div class="container">
         <br />
         @RenderBody()
