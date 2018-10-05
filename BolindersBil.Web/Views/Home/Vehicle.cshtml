@@ -1,4 +1,4 @@
-﻿@model Vehicle
+@model Vehicle
 
 @{
     ViewData["Title"] = "ViewVehicle";
@@ -33,6 +33,20 @@
         <strong>Bränsletyp:</strong> @Model.Fuel<br />
         <strong>Hästkrafter:</strong> @Model.Horsepower<br />
         <strong>Anläggning:</strong> @Model.Dealership.City<br />
-        <strong>Pipe-separerad attributlista:</strong> @Model.Attributes<br />
-    </div>
+        <strong>Leasbar för företag:</strong> @Model.Lease<br />
+        <strong>Extrautrustning:</strong><br />
+        <ul>
+            @if (Model.Attributes != null)
+            {
+                @foreach (var att in Model.Attributes.Split("|").SkipLast(1))
+                {
+                    <li>@att</li>
+                }
+            }
+            else
+            {
+            <li>Ingen Extrautrustning</li>
+            }
+        </ul>
+</div>
 </div>
