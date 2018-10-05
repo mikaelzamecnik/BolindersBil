@@ -2,7 +2,7 @@
 @model SingleVehicleViewModel
 @{
     ViewData["Title"] = "ViewVehicle";
-    var x = (int)Model.Price * 0.8;
+    var x = (int)Model.Vehicle.Price * 0.8;
 }
 
 <h2>@Model.Vehicle.Brand.Name @Model.Vehicle.Model  @Model.Vehicle.ModelDescription</h2>
