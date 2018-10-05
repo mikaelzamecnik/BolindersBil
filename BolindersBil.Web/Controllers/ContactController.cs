@@ -40,7 +40,7 @@ namespace BolindersBil.Web.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
-                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
+                //client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord); Change when you have a smtp server
                 client.Send(message);
                 client.Disconnect(true);
             }

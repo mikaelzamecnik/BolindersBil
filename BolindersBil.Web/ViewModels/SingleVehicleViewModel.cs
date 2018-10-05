@@ -15,5 +15,6 @@ namespace BolindersBil.Web.ViewModels
         public List<SelectListItem> DealerShips { get; set; }
         public string Url { get; set; }
         public string SendMail { get; set; }
+        public int ResendId { get; set; }
     }
 }

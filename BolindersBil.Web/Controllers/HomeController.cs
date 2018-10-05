@@ -81,6 +81,7 @@ namespace BolindersBil.Web.Controllers
 
             };
 
+
             return View(vm);
         }
 
@@ -89,29 +90,27 @@ namespace BolindersBil.Web.Controllers
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
-            
                 message.To.Add(new MailboxAddress(model.SendMail));
                 message.Subject = "Här kommer din drömbil från BolindersBil";
-                //model.Url = HttpContext.Request.PathBase;
                 message.Body = new TextPart("html")
                 {
-                    Text = "<h6><strong>BolindersBil</strong></h2>" + "<br>" +
+                    Text = "<h2><strong>Klicka på länken för att se fordonet</strong></h2>" + "<br>" +
                     $"<a href='{model.Url}' target='_blank'>{model.Url}</a>"
                 };
 
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
-                    client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
-                    client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
+                client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
+                //client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord); Change when you have a smtp server
+                client.Send(message);
+                client.Disconnect(true);
+            }
                 ModelState.Clear();
+            return RedirectToAction(nameof(Index));
             //Need to redirect on the same page... Vehicle/vehicie/id
-                return View(model);
             //Todo Need a failsave if input value = empty
             //else { ModelState.Clear(); return RedirectToRoute(); }
-          
         }
+
     }
 }
