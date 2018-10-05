@@ -1,7 +1,7 @@
 ﻿@model VehicleListViewModel
 
 @{
-    ViewData["Title"] = "Home - Index";
+    ViewData["Title"] = "Search - Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,7 +9,7 @@
 <br />
 @foreach (var p in Model.Vehicles)
 {
-    <a asp-action="Vehicle" asp-route-vehicleId="@p.Id">
+    <a asp-controller="home" asp-action="Vehicle" asp-route-vehicleId="@p.Id">
         <div class="card">
             <div class="card-body">
                 <div class="row">

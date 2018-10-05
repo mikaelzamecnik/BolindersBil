@@ -1,9 +1,13 @@
 ﻿<div class="card">
     <div class="card-body">
         <div class="form-group">
-            <form>
-                <input class="form-control" type="search" name="SearchString" placeholder="Sök på version, utrustning, reg-nummer osv." aria-label="Sök">
-                <button class="btn btn-primary" type="submit">Sök</button>
+            <form asp-controller="Search" asp-action="Index" method="get">
+                <div class="input-group">
+                    <input type="search" class="form-control" name="searchString" placeholder="Sök på tillverkare, modell, version, utrustning, reg-nummer osv.">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Sök</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
