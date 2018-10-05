@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BolindersBil.Web.Repositories;
 using BolindersBil.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using BolindersBil.Web.Infrastructure;
 
 namespace BolindersBil.Web.Controllers
 {
@@ -20,17 +21,11 @@ namespace BolindersBil.Web.Controllers
         }
 
         [Route("sök")]
-        public IActionResult Index(string searchString, int page = 1)
+        public IActionResult Index(string searchString, bool? used = null, int minYear = 0, int maxYear = int.MaxValue, int minPrice = 0, int maxPrice = int.MaxValue,
+           int minKm = 0, int maxKm = int.MaxValue, string fuel = null, string body = null, string transmission = null, int page = 1)
         {
-            // LINQ query to select vehicles
-            //var vehicles = from v in vehicleRepo.Vehicles select v;
-
             var vehicles = vehicleRepo.Vehicles;
 
-            // If the searchstring parameter contains a string the vehicle
-            // query is modified to filter on the value of the search string
-            // TODO
-            /* orderby lambda expression for filter */
             if (!String.IsNullOrEmpty(searchString))
             {
                 string[] searchStringWords = searchString.Split();
@@ -39,25 +34,53 @@ namespace BolindersBil.Web.Controllers
                 {
                     {
                         vehicles = vehicles.Where(s =>
-                            s.Brand.Name.Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
-                            s.Model.Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
-                            s.RegistrationNumber.Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
-                            s.ModelDescription.Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
-                            //s.Attributes.Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
-                            s.Horsepower.Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
-                            s.Color.Contains(word, StringComparison.InvariantCultureIgnoreCase)
+                            (s.Brand.Name ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
+                            (s.Model ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
+                            (s.RegistrationNumber ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
+                            (s.ModelDescription ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
+                            (s.Attributes ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
+                            (s.Horsepower ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase) ||
+                            (s.Color ?? "").Contains(word, StringComparison.InvariantCultureIgnoreCase)
                         );
                     }
                 }
             }
 
+            var filtered1 = vehicles.FilterByPrice(minPrice, maxPrice);
+            var filtered2 = filtered1.FilterByKm(minKm, maxKm);
+            var filtered3 = filtered2.FilterByYear(minYear, maxYear);
+
+            if (used != null)
+            {
+                filtered3 = filtered3.Where(s =>
+                                s.Used.Equals(used));
+            }
+
+            if (fuel != null)
+            {
+                filtered3 = filtered3.Where(s =>
+                                s.Fuel.Equals(fuel));
+            }
+
+            if (body != null)
+            {
+                filtered3 = filtered3.Where(s =>
+                                s.Body.Equals(body));
+            }
+
+            if (transmission != null)
+            {
+                filtered3 = filtered3.Where(s =>
+                                s.Transmission.Equals(transmission));
+            }
+
             var toSkip = (page - 1) * PageLimit;
-            var vehiclesInPageLimit = vehicles
+            var vehiclesInPageLimit = filtered3
                 .OrderBy(x => x.Id)
                 .Skip(toSkip)
                 .Take(PageLimit);
 
-            var totalNumberOfVehicles = vehicles.Count();
+            var totalNumberOfVehicles = filtered3.Count();
 
             var showButton = true;
 
