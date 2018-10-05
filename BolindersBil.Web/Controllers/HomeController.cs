@@ -27,26 +27,24 @@ namespace BolindersBil.Web.Controllers
             _appSettings = settings.Value;
         }
 
-        public IActionResult Index(string searchString, int page = 1)
-        {
-            // LINQ query to select vehicles
-            var vehicles = from v in vehicleRepo.Vehicles
-                           select v;
+        public IActionResult Index(string state, int page = 1)
+       {
+            var vehicles = vehicleRepo.Vehicles;
 
-            // If the searchstring parameter contains a string the vehicle
-            // query is modified to filter on the value of the search string
-            // TODO
-            /* orderby lambda expression for filter */
-            if (!String.IsNullOrEmpty(searchString))
+            if (state == "nya")
             {
                 vehicles = vehicles.Where(s =>
-                    s.Model.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) ||
-                    s.RegistrationNumber.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)
-                );
+                s.Used is false);
+            }
+
+            if (state == "begagnade")
+            {
+                vehicles = vehicles.Where(s =>
+                s.Used is true);
             }
 
             var toSkip = (page - 1) * PageLimit;
-            var vehicles2 = vehicles
+            var vehiclesInPageLimit = vehicles
                 .OrderBy(x => x.Id)
                 .Skip(toSkip)
                 .Take(PageLimit);
@@ -62,7 +60,7 @@ namespace BolindersBil.Web.Controllers
 
             var vm = new VehicleListViewModel
             {
-                Vehicles = vehicles2,
+                Vehicles = vehiclesInPageLimit,
                 ShowButton = showButton,
                 NextPage = ++page
             };

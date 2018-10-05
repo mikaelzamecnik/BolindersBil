@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.AspNetCore.Routing;
 
 namespace BolindersBil.Web
 {
@@ -43,6 +43,8 @@ namespace BolindersBil.Web
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conn));
             services.AddTransient<IVehicleRepository, VehicleRepository>();
             services.Configure<CustomAppSettings>(_configuration.GetSection("CustomAppSettings"));
+            // Make all generated URLs lowercase
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,18 +58,38 @@ namespace BolindersBil.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
 
             // Add custom route template
 
             app.UseMvc(routes =>
             {
-
+                // -> /bilar/1
                 routes.MapRoute(
+                    name: "bilar/vehicleId",
+                    template: "bilar/{vehicleId:int}",
+                    defaults: new { controller = "Home", action = "Vehicle" }
+                );
 
-                   name: "Admin",
-                   template: "Admin/{page}",
-                   defaults: new { Controller = "Admin", action = "Create" });
+                // -> /bilar/nya och bilar/begagnade
+                routes.MapRoute(
+                    name: "bilar/state",
+                    template: "bilar/{state}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                // -> /bilar
+                routes.MapRoute(
+                    name: "",
+                    template: "bilar",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
+
+                // -> /
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}"
+                );
             });
             VehicleSeed.FillIfEmpty(ctx);
         }

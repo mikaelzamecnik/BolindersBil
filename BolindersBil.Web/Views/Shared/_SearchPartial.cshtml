@@ -1,10 +1,92 @@
 ﻿<div class="card">
     <div class="card-body">
         <div class="form-group">
-            <form>
-                <input class="form-control" type="search" name="SearchString" placeholder="Sök på version, utrustning, reg-nummer osv." aria-label="Sök">
-                <button class="btn btn-primary" type="submit">Sök</button>
+            <form asp-controller="Search" asp-action="Index" method="get">
+                <div class="input-group">
+                    <input type="search" class="form-control" name="SearchString" placeholder="Sök på tillverkare, modell, version, utrustning, reg-nummer osv.">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Sök</button>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="minYear">Årsmodell från:</label>
+                        <select class="form-control" name="MinYear">
+                            <option disabled selected>Välj</option>
+                            @for (var i = DateTime.Now.AddYears(+1).Year; i >= 1980; i--)
+                            {
+                                <option>@i</option>
+                            }
+                            <option value="1970">70-talet</option>
+                            <option value="1960">60-talet</option>
+                            <option value="1950">50-talet</option>
+                            <option value="1885">40-talet eller äldre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="MaxYear">Årsmodell till:</label>
+                        <select class="form-control" name="MaxYear">
+                            <option disabled selected>Välj</option>
+                            @for (var i = DateTime.Now.AddYears(+1).Year; i >= 1980; i--)
+                            {
+                                <option>@i</option>
+                            }
+                            <option value="1970">70-talet</option>
+                            <option value="1960">60-talet</option>
+                            <option value="1950">50-talet</option>
+                            <option value="1885">40-talet eller äldre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="MinPrice">Pris från:</label>
+                        <input type="number" class="form-control" name="MinPrice" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="MaxPrice">Pris till:</label>
+                        <input type="number" class="form-control" name="MaxPrice" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="MinKm">Km från:</label>
+                        <input type="number" class="form-control" name="MinKm" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="MaxKm">Km till:</label>
+                        <input type="number" class="form-control" name="MaxKm" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="Used">Skick:</label>
+                        <select name="Used" class="form-control">
+                            <option disabled selected>Välj</option>
+                            <option value="false">Ny</option>
+                            <option value="true">Begagnad</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Fuel">Bränsle:</label>
+                        <select asp-items="FilterListItems.Fuel" name="Fuel" class="form-control"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Body">Karosstyp:</label>
+                        <select asp-items="FilterListItems.Body" name="Body" class="form-control"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Transmission">Växellåda:</label>
+                        <select asp-items="FilterListItems.Transmission" name="Transmission" class="form-control"></select>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
+
+
+@*<div class="col-md-6 mb-3">
+    <label for="firstName">First name</label>
+    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+    <div class="invalid-feedback">
+        Valid first name is required.
+    </div>
+</div>*@
