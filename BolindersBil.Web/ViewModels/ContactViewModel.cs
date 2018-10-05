@@ -18,5 +18,6 @@ namespace BolindersBil.Web.Models
         [Required(ErrorMessage = "Skriv ditt meddelande!")]
         public string Message { get; set; }
         public string DealershipEmail { get; set; }
+
     }
 }
