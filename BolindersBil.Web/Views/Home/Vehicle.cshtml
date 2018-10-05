@@ -2,7 +2,7 @@
 @model SingleVehicleViewModel
 @{
     ViewData["Title"] = "ViewVehicle";
-    var x = (int)Model.Price * 0.8;
+    var x = (int)Model.Vehicle.Price * 0.8;
 }
 
 <h2>@Model.Vehicle.Brand.Name @Model.Vehicle.Model  @Model.Vehicle.ModelDescription</h2>
@@ -19,8 +19,8 @@
         <strong>Bränsletyp:</strong> @Model.Vehicle.Fuel<br />
         <strong>Hästkrafter:</strong> @Model.Vehicle.Horsepower<br />
         <strong>Begagnad:</strong> @Model.Vehicle.Used<br />
-        <strong>Anläggning:</strong> @Model.Vehicle.Dealership.City<br />
         <strong>Leasbar för företag:</strong> @Model.Vehicle.Lease<br />
+        <strong>Kontakta Säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:+46 @Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
         <strong>Extrautrustning:</strong><br />
         <ul>
             @if (Model.Vehicle.Attributes != null)
@@ -35,12 +35,12 @@
                 <li>Ingen Extrautrustning</li>
             }
         </ul><br />
-                 <div class="form-inline">
-                     <form asp-action="Vehicle" asp-controller="Home" method="post">
-                         <input asp-for="SendMail" type="email" id="textsend" onkeyup="success()" placeholder="Skriv in e-postadressen..." class="form-control mr-1" />
-                         <input asp-for="Url"  type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-info" disabled>Skicka Annonslänk</button>
-                         <input asp-for="ResendId" type="hidden" value="@Model.Vehicle.Id"/>
-                     </form>
-                 </div>
+        <div class="form-inline">
+            <form asp-action="Vehicle" asp-controller="Home" method="post">
+                <input asp-for="SendMail" type="email" id="textsend" onkeyup="success()" placeholder="Skriv in e-postadressen..." class="form-control mr-1" />
+                <input asp-for="Url" type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-info" disabled>Skicka Annonslänk</button>
+                <input asp-for="ResendId" type="hidden" value="@Model.Vehicle.Id" />
+            </form>
         </div>
+    </div>
     </div>
