@@ -20,7 +20,7 @@
         <strong>Hästkrafter:</strong> @Model.Vehicle.Horsepower<br />
         <strong>Begagnad:</strong> @Model.Vehicle.Used<br />
         <strong>Leasbar för företag:</strong> @Model.Vehicle.Lease<br />
-        <strong>Kontakta Säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:@Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
+        <strong>Kontakta Säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:+46 @Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
         <strong>Extrautrustning:</strong><br />
         <ul>
             @if (Model.Vehicle.Attributes != null)
