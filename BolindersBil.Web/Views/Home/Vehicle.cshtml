@@ -1,25 +1,46 @@
-﻿@model Vehicle
 
+@model SingleVehicleViewModel
 @{
     ViewData["Title"] = "ViewVehicle";
+    var x = (int)Model.Vehicle.Price * 0.8;
 }
 
-<h2>@Model.Brand.Name @Model.Model  @Model.ModelDescription</h2>
+<h2>@Model.Vehicle.Brand.Name @Model.Vehicle.Model  @Model.Vehicle.ModelDescription</h2>
 <div class="card">
     <div class="card-body">
-        <img class="img-fluid" src="@Model.ImageUrl">
-        <h4>Pris: @($"{Model.Price:C0}")</h4>
-        <strong>Årsmodell:</strong> @Model.Year<br />
-        <strong>Kilometer:</strong> @Model.Mileage<br />
-        <strong>Registreringsnummer:</strong> @Model.RegistrationNumber<br />
-        <strong>Karosstyp:</strong> @Model.Body<br />
-        <strong>Färg:</strong> @Model.Color<br />
-        <strong>Växellådstyp:</strong> @Model.Transmission<br />
-        <strong>Bränsletyp:</strong> @Model.Fuel<br />
-        <strong>Hästkrafter:</strong> @Model.Horsepower<br />
-        <strong>Begagnad:</strong> @Model.Used<br />
-        <strong>Anläggning:</strong> @Model.Dealership.City<br />
-        <strong>Leasbar för företag:</strong> @Model.Lease<br />
-        <strong>Pipe-separerad attributlista:</strong> @Model.Attributes<br />
+        <img class="img-fluid" src="@Model.Vehicle.ImageUrl">
+        <h4>Pris: @($"{Model.Vehicle.Price:C0}")</h4>
+        <strong>Årsmodell:</strong> @Model.Vehicle.Year<br />
+        <strong>Kilometer:</strong> @Model.Vehicle.Mileage<br />
+        <strong>Registreringsnummer:</strong> @Model.Vehicle.RegistrationNumber<br />
+        <strong>Karosstyp:</strong> @Model.Vehicle.Body<br />
+        <strong>Färg:</strong> @Model.Vehicle.Color<br />
+        <strong>Växellådstyp:</strong> @Model.Vehicle.Transmission<br />
+        <strong>Bränsletyp:</strong> @Model.Vehicle.Fuel<br />
+        <strong>Hästkrafter:</strong> @Model.Vehicle.Horsepower<br />
+        <strong>Begagnad:</strong> @Model.Vehicle.Used<br />
+        <strong>Leasbar för företag:</strong> @Model.Vehicle.Lease<br />
+        <strong>Kontakta Säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:+46 @Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
+        <strong>Extrautrustning:</strong><br />
+        <ul>
+            @if (Model.Vehicle.Attributes != null)
+            {
+                @foreach (var att in Model.Vehicle.Attributes.Split("|").SkipLast(1))
+                {
+                    <li>@att</li>
+                }
+            }
+            else
+            {
+                <li>Ingen Extrautrustning</li>
+            }
+        </ul><br />
+        <div class="form-inline">
+            <form asp-action="Vehicle" asp-controller="Home" method="post">
+                <input asp-for="SendMail" type="email" id="textsend" onkeyup="success()" placeholder="Skriv in e-postadressen..." class="form-control mr-1" />
+                <input asp-for="Url" type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-info" disabled>Skicka Annonslänk</button>
+                <input asp-for="ResendId" type="hidden" value="@Model.Vehicle.Id" />
+            </form>
+        </div>
     </div>
-</div>
+    </div>

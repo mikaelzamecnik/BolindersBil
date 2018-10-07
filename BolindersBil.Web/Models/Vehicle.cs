@@ -18,7 +18,7 @@ namespace BolindersBil.Web.Models
         [Required(ErrorMessage = "Fordonet måste ha registeringsnummer!")]
         public string RegistrationNumber { get; set; }
         [Required(ErrorMessage = "Fordonet måste ha en årsmodell!")]
-        public string Year { get; set; }
+        public int Year { get; set; }
         [Required(ErrorMessage = "Fordonet måste ha kilometertal!")]
         public double Mileage { get; set; }
         [Required(ErrorMessage = "Fordonet måste ha ett pris!")]

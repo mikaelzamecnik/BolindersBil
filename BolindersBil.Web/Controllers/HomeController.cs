@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using BolindersBil.Web.Models;
 using BolindersBil.Web.Repositories;
 using BolindersBil.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MailKit.Net.Smtp;
+using MimeKit;
+using System.Web.Http;
+using BolindersBil.Web.Infrastructure;
 
 namespace BolindersBil.Web.Controllers
 {
@@ -12,32 +19,32 @@ namespace BolindersBil.Web.Controllers
     {
         private IVehicleRepository vehicleRepo;
         public int PageLimit = 8;
+        private CustomAppSettings _appSettings;
 
-        public HomeController(IVehicleRepository vehicleRepository)
+        public HomeController(IVehicleRepository vehicleRepository,IOptions<CustomAppSettings> settings)
         {
             vehicleRepo = vehicleRepository;
+            _appSettings = settings.Value;
         }
 
-        public IActionResult Index(string searchString, int page = 1)
-        {
-            // LINQ query to select vehicles
-            var vehicles = from v in vehicleRepo.Vehicles
-                           select v;
+        public IActionResult Index(string state, int page = 1)
+       {
+            var vehicles = vehicleRepo.Vehicles;
 
-            // If the searchstring parameter contains a string the vehicle
-            // query is modified to filter on the value of the search string
-            // TODO
-            /* orderby lambda expression for filter */
-            if (!String.IsNullOrEmpty(searchString))
+            if (state == "nya")
             {
                 vehicles = vehicles.Where(s =>
-                    s.Model.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) ||
-                    s.RegistrationNumber.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)
-                );
+                s.Used is false);
+            }
+
+            if (state == "begagnade")
+            {
+                vehicles = vehicles.Where(s =>
+                s.Used is true);
             }
 
             var toSkip = (page - 1) * PageLimit;
-            var vehicles2 = vehicles
+            var vehiclesInPageLimit = vehicles
                 .OrderBy(x => x.Id)
                 .Skip(toSkip)
                 .Take(PageLimit);
@@ -53,7 +60,7 @@ namespace BolindersBil.Web.Controllers
 
             var vm = new VehicleListViewModel
             {
-                Vehicles = vehicles2,
+                Vehicles = vehiclesInPageLimit,
                 ShowButton = showButton,
                 NextPage = ++page
             };
@@ -64,17 +71,44 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
-            return View(vehicle);
+            var vm = new SingleVehicleViewModel
+            {
+                DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
+                Brands = vehicleRepo.Brands.ToSelectList(vehicle),
+                Vehicle = vehicle
+
+            };
+
+
+            return View(vm);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        public IActionResult Contact()
+        public IActionResult SendLink(SingleVehicleViewModel model)
         {
 
-            return View();
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
+                message.To.Add(new MailboxAddress(model.SendMail));
+                message.Subject = "Här kommer din drömbil från BolindersBil";
+                message.Body = new TextPart("html")
+                {
+                    Text = "<h2><strong>Klicka på länken för att se fordonet</strong></h2>" + "<br>" +
+                    $"<a href='{model.Url}' target='_blank'>{model.Url}</a>"
+                };
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
+                //client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord); Change when you have a smtp server
+                client.Send(message);
+                client.Disconnect(true);
+            }
+                ModelState.Clear();
+            return RedirectToAction(nameof(Index));
+            //Need to redirect on the same page... Vehicle/vehicie/id
+            //Todo Need a failsave if input value = empty
+            //else { ModelState.Clear(); return RedirectToRoute(); }
         }
+
     }
 }

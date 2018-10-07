@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="dropzone" Version="4.2.0" />
+    <PackageReference Include="MailKit" Version="2.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />

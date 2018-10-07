@@ -27,7 +27,37 @@
         <label>Årsmodell</label>
         <select asp-for="Vehicle.Year" class="form-control" required>
 
+
             @for (var i = DateTime.Now.AddYears(+1).Year; i >= 1980; i--)
+
+<div class="form-group">
+    <label>Bilmärke<small style="color:red"> *</small></label>
+    <select asp-for="Vehicle.BrandId" asp-items="Model.Brands" class="form-control" required></select>
+</div>
+<div class="form-group">
+    <label>Modell<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.Model" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Modell Beskrivning<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.ModelDescription" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Anläggning<small style="color:red"> *</small></label>
+    <select asp-for="Vehicle.DealerShipId" asp-items="Model.DealerShips" class="form-control" required></select>
+</div>
+<div class="form-group">
+    <label>Registeringsnummer<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.RegistrationNumber" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Pris(ink moms)<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.Price" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Årsmodell<small style="color:red"> *</small></label>
+    <select asp-for="Vehicle.Year" class="form-control" required>
+
 
             {
 
@@ -76,10 +106,62 @@
         <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />
     </div>
 
+
     <div class="form-group">
         <label>Ladda up bild</label>
         <input type="file" name="images" id="images" multiple />
     </div>
+
+            <option>@i</option>
+        }
+        <option value="1970">70-talet</option>
+        <option value="1960">60-talet</option>
+        <option value="1950">50-talet</option>
+        <option value="1885">40-talet eller äldre</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Antal Kilometer<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.Mileage" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Fordonstyp<small style="color:red"> *</small></label>
+    <select asp-for="Vehicle.Body" asp-items="FilterListItems.Body" class="form-control" required></select>
+</div>
+<div class="form-group">
+    <label>Färg<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.Color" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Växellåda<small style="color:red"> *</small></label>
+    <select asp-for="Vehicle.Transmission" asp-items="FilterListItems.Transmission" class="form-control" required></select>
+</div>
+<div class="form-group">
+    <label>Bränsle<small style="color:red"> *</small></label>
+    <select asp-for="Vehicle.Fuel" asp-items="FilterListItems.Fuel" class="form-control" required></select>
+</div>
+<div class="form-group">
+    <label>Hästkrafter<small style="color:red"> *</small></label>
+    <input asp-for="Vehicle.Horsepower" class="form-control" required />
+</div>
+<div class="form-group">
+    <label>Klicka i rutan om bilen är begagnad</label>
+    <input type="checkbox" asp-for="Vehicle.Used" class="form-control" />
+</div>
+
+
+@*<div class="form-group"> This is for
+    <label asp-for="Vehicle.ImageUrl"></label>
+    <textarea asp-for="Vehicle.ImageUrl" class="form-control"></textarea>
+</div>*@
+
+
+
+<div class="form-group">
+    <label>Klicka i rutan om bilen är leasebar</label>
+    <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />
+</div>
+
 
     <div id="myDIV" class="form-group">
         <label>Lägg till extrautrustning</label>
