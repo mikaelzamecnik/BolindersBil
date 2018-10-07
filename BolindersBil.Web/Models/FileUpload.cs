@@ -8,8 +8,8 @@ namespace BolindersBil.Web.Models
     public class FileUpload
     {
         public int Id { get; set; }
-        public string FileTitle { get; set; }
-        public string Suffix { get; set; }
+        public Guid FileTitle { get; set; }
+        //public string Suffix { get; set; }
         public string FilePath { get; set; }
         public int VehicleId { get; set; }
         public virtual Vehicle Vehicle { get; set; }

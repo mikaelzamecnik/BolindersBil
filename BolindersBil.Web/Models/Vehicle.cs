@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -44,12 +45,6 @@ namespace BolindersBil.Web.Models
         public virtual Dealership Dealership { get; set; }
         public int FileUploadId { get; set; }
         public virtual List<FileUpload> FileUpload { get; set; }
-
-        //public Vehicle()
-        //{
-        //    var Vehicle = new FileUpload();
-        //}
-
 
     }
 }

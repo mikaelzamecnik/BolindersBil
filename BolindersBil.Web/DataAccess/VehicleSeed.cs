@@ -55,6 +55,20 @@ namespace BolindersBil.Web.DataAccess
 
             }
 
+            //if (!ctx.FileUploads.Any())
+            //{
+            //    var fileUploads = new List<FileUpload>{
+            //        new FileUpload {FileTitle = "52c", FilePath = "Images", VehicleId = 1},
+            //        new FileUpload {FileTitle = "campus_skrivbordsbakgrund", FilePath = "Images", VehicleId = 1},
+            //        new FileUpload {FileTitle = "Iftar buffet", FilePath = "Images", VehicleId = 1},
+            //        new FileUpload {FileTitle = "Iftar buffet", FilePath = "Images", VehicleId = 2},
+
+            //    };
+
+            //    ctx.FileUploads.AddRange(fileUploads);
+            //    ctx.SaveChanges();
+
+            //}
 
         }
     }
