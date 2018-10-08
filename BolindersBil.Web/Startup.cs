@@ -67,7 +67,7 @@ namespace BolindersBil.Web
                 // -> /bilar/1
                 routes.MapRoute(
                     name: "bilar/vehicleId",
-                    template: "bilar/{vehicleId:int}",
+                    template: "bilar/{brandName}/{model}/{modelDescription}/{vehicleId:int}",
                     defaults: new { controller = "Home", action = "Vehicle" }
                 );
 

@@ -1,11 +1,12 @@
 
 @model SingleVehicleViewModel
 @{
-    ViewData["Title"] = "ViewVehicle";
+    ViewData["Title"] = $"Bolinders Bil : {Model.Vehicle.Brand.Name} {Model.Vehicle.Model} {Model.Vehicle.ModelDescription}";
     var x = (int)Model.Vehicle.Price * 0.8;
 }
 
 <h2>@Model.Vehicle.Brand.Name @Model.Vehicle.Model  @Model.Vehicle.ModelDescription</h2>
+<hr />
 <div class="card">
     <div class="card-body">
         <img class="img-fluid" src="@Model.Vehicle.ImageUrl">
