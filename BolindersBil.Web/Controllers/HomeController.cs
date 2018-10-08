@@ -87,18 +87,14 @@ namespace BolindersBil.Web.Controllers
 
         public IActionResult Vehicle(int vehicleId)
         {
-            var vehicles = vehicleRepo.Vehicles;
-            var brands = vehicleRepo.Brands;
-            List<int> comparebrand = new List<int>();
-
-
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
+
+            var relatedVehicles = vehicleRepo.Vehicles.Where(x => x.BrandId.Equals(vehicle.BrandId)).Where(x => x.Price > vehicle.Price).Take(4);
+
             var vm = new SingleVehicleViewModel
             {
-                DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
-                Brands = vehicleRepo.Brands.ToSelectList(vehicle),
                 Vehicle = vehicle,
-                CompareBrand = comparebrand
+                RelatedVehicles = relatedVehicles
             };
 
 
