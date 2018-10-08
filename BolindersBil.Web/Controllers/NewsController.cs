@@ -22,7 +22,7 @@ namespace BolindersBil.Web.Controllers
             _appSettings = settings.Value;
         }
 
-
+        [Route("nyheter")]
         public IActionResult Index(ArticlesResult articlesResult)
         {
             //Use appsettings.json to change api url and key

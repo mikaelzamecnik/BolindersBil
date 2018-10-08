@@ -108,7 +108,7 @@ namespace BolindersBil.Web.Controllers
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
+            message.From.Add(new MailboxAddress("mail.bolinder.bil@gmail.com"));
                 message.To.Add(new MailboxAddress(model.SendMail));
                 message.Subject = "Här kommer din drömbil från BolindersBil";
                 message.Body = new TextPart("html")
@@ -120,7 +120,7 @@ namespace BolindersBil.Web.Controllers
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
                 client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
-                //client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord); Change when you have a smtp server
+                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
                 client.Send(message);
                 client.Disconnect(true);
             }

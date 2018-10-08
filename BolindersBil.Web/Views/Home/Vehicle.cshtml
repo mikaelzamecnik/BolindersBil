@@ -39,7 +39,7 @@
         <div class="form-inline">
             <form asp-action="SendLink" asp-controller="Home" method="post">
                 <input asp-for="SendMail" type="email" id="textsend" onkeyup="success()" placeholder="Skriv in e-postadressen..." class="form-control mr-1" />
-                <input asp-for="Url" type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-info" disabled>Skicka Annonslänk</button>
+                <input asp-for="Url" type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-primary" disabled>Skicka Annonslänk</button>
                 <input asp-for="ResendId" type="hidden" value="@Model.Vehicle.Id" />
             </form>
         </div>

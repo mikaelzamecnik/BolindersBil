@@ -2,7 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-<h2>@ViewBag.Heading</h2>
+<h2>Redigera fordon</h2>
+<hr />
 <form asp-controller="admin" asp-action="create" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Vehicle.Id" />
     <input type="hidden" asp-for="Vehicle.DateUpdated" />
