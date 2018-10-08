@@ -19,8 +19,8 @@
         <strong>Bränsletyp:</strong> @Model.Vehicle.Fuel<br />
         <strong>Hästkrafter:</strong> @Model.Vehicle.Horsepower<br />
         <strong>Begagnad:</strong> @Model.Vehicle.Used<br />
-        <strong>Anläggning:</strong> @Model.Vehicle.Dealership.City<br />
         <strong>Leasbar för företag:</strong> @Model.Vehicle.Lease<br />
+        <strong>Kontakta Säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:+46 @Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
         <strong>Extrautrustning:</strong><br />
         <ul>
             @if (Model.Vehicle.Attributes != null)
@@ -43,13 +43,4 @@
             </form>
         </div>
     </div>
-</div>
-@{ 
-    var currentbrand = Model.Vehicle.Brand;
-
-}
-@foreach (var myItem in Model.Vehicles) {
-<card>@myItem.Model</card>
-
-
-}
+    </div>
