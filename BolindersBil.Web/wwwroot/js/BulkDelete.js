@@ -12,7 +12,7 @@
         var chkArray = [];
 
         /* look for all checkboxes in .cards and check if they are checked, and then take their values and push into an array */
-        $(".card input:checked").each(function () {
+        $(".col-md-8 input:checked").each(function () {
             chkArray.push($(this).val());
         });
 

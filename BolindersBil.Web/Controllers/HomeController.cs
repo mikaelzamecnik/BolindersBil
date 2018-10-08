@@ -30,6 +30,7 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Index(string state, int page = 1)
        {
             var vehicles = vehicleRepo.Vehicles;
+            var brands = vehicleRepo.Brands;
 
             if (state == "nya")
             {
@@ -42,6 +43,20 @@ namespace BolindersBil.Web.Controllers
                 vehicles = vehicles.Where(s =>
                 s.Used is true);
             }
+
+           // Generate a list with the BrandId of cars in stock and place in the viewmodel further down
+
+           List<int> brandsInStock = new List<int>();
+
+            foreach (var b in vehicles)
+            {
+                if (!brandsInStock.Contains(b.BrandId))
+                {
+                    brandsInStock.Add(b.BrandId);
+                }
+            }
+
+            // Code for PageLimit button at the bottom
 
             var toSkip = (page - 1) * PageLimit;
             var vehiclesInPageLimit = vehicles
@@ -61,6 +76,8 @@ namespace BolindersBil.Web.Controllers
             var vm = new VehicleListViewModel
             {
                 Vehicles = vehiclesInPageLimit,
+                Brands = brands,
+                BrandsInStock = brandsInStock,
                 ShowButton = showButton,
                 NextPage = ++page
             };

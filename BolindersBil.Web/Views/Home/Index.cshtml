@@ -5,7 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<partial name="_SearchPartial">
+<partial name="_SearchPartial" />
+<br />
+<div class="card text-center">
+    <div class="card-body">
+        @foreach (var bis in Model.BrandsInStock)
+        {
+            @foreach (var b in Model.Brands)
+            {
+                @if (b.Id == bis)
+                {
+                    <a href="sök?SearchString=@b.Name"><img height="70" src="@b.LogoUrl" alt="@b.Name" title="@b.Name"></a>
+                }
+            }
+        }
+    </div>
+</div>
 <br />
 @foreach (var p in Model.Vehicles)
 {
@@ -30,5 +45,5 @@
 }
 @if (Model.ShowButton == true)
 {
-    <a class="btn btn-primary" href="/?Page=@Model.NextPage">Visa fler</a>
+    <a class="btn btn-primary" href="?Page=@Model.NextPage">Visa fler</a>
 }

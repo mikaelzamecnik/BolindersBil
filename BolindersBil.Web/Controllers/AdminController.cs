@@ -14,50 +14,40 @@ namespace BolindersBil.Web.Controllers
     public class AdminController : Controller
     {
         private IVehicleRepository vehicleRepo;
+        public int PageLimit = 8;
 
         public AdminController(IVehicleRepository vehicleRepository)
         {
             vehicleRepo = vehicleRepository;
         }
 
-        /*
-        Lista alla fordon när man går in på /admin
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(vehicleRepo.Vehicles);
-        }
-        */
+            var vehicles = vehicleRepo.Vehicles;
 
-        // TODO
-        /* Make this to a component to prevent DRY.
-         * Lambda expression here if we got time over.
-         *
-         * #param searchString
-         */
-        public IActionResult Index(string searchString)
-        {
-            // LINQ query to select vehicles
-            var vehicles = from v in vehicleRepo.Vehicles
-                           select v;
+            var toSkip = (page - 1) * PageLimit;
+            var vehiclesInPageLimit = vehicles
+                .OrderBy(x => x.Id)
+                .Skip(toSkip)
+                .Take(PageLimit);
 
-            // If the searchstring parameter contains a string the vehicle
-            // query is modified to filter on the value of the search string
-            // TODO
-            /* orderby lambda expression for filter */
-            if (!String.IsNullOrEmpty(searchString))
+            var totalNumberOfVehicles = vehicles.Count();
+
+            var showButton = true;
+
+            if (page * PageLimit > totalNumberOfVehicles)
             {
-                vehicles = vehicles.Where(s =>
-                    s.Model.Contains(searchString, StringComparison.InvariantCultureIgnoreCase) ||
-                    s.RegistrationNumber.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)
-                );
+                showButton = false;
             }
 
-            return View(vehicles);
-        }
-        // Sök/filtrera efter fordon
-        public IActionResult Search()
-        {
-            return View();
+            var vm = new VehicleListViewModel
+            {
+                Vehicles = vehiclesInPageLimit,
+                ShowButton = showButton,
+                NextPage = ++page
+            };
+
+            return View(vm);
         }
 
         // Redigera fordon
