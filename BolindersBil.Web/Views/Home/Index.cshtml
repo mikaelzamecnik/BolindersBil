@@ -1,8 +1,7 @@
 ﻿@model VehicleListViewModel
 
 @{
-    ViewData["Title"] = "Home - Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Bolinders Bil : Startsidan";
 }
 
 <partial name="_SearchPartial" />
@@ -24,7 +23,7 @@
 <br />
 @foreach (var p in Model.Vehicles)
 {
-    <a asp-action="Vehicle" asp-route-vehicleId="@p.Id">
+    <a asp-action="Vehicle" asp-route-vehicleId="@p.Id" asp-route-brandName="@p.Brand.Name" asp-route-model="@p.Model" asp-route-modelDescription="@p.ModelDescription">
         <div class="card">
             <div class="card-body">
                 <div class="row">
