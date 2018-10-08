@@ -6,24 +6,27 @@
 
 <partial name="_SearchPartial" />
 <br />
-<div class="card text-center">
-    <div class="card-body">
-        @foreach (var bis in Model.BrandsInStock)
-        {
-            @foreach (var b in Model.Brands)
+@if (Model.BrandsInStock != null)
+{
+    <div class="card text-center">
+        <div class="card-body">
+            @foreach (var bis in Model.BrandsInStock)
             {
-                @if (b.Id == bis)
+                @foreach (var b in Model.Brands)
                 {
-                    <a href="sök?SearchString=@b.Name"><img height="70" src="@b.LogoUrl" alt="@b.Name" title="@b.Name"></a>
+                    @if (b.Id == bis)
+                    {
+                        <a href="sök?SearchString=@b.Name"><img height="70" src="@b.LogoUrl" alt="@b.Name" title="@b.Name"></a>
+                    }
                 }
             }
-        }
+        </div>
     </div>
-</div>
-<br />
+    <br />
+}
 @foreach (var p in Model.Vehicles)
 {
-    <a asp-action="Vehicle" asp-route-vehicleId="@p.Id" asp-route-brandName="@p.Brand.Name" asp-route-model="@p.Model" asp-route-modelDescription="@p.ModelDescription">
+    <a asp-controller="home" asp-action="Vehicle" asp-route-vehicleId="@p.Id" asp-route-brandName="@p.Brand.Name" asp-route-model="@p.Model" asp-route-modelDescription="@p.ModelDescription">
         <div class="card">
             <div class="card-body">
                 <div class="row">
