@@ -85,6 +85,7 @@ namespace BolindersBil.Web.Controllers
             return View(vm);
         }
 
+        [HttpGet]
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
@@ -98,8 +99,11 @@ namespace BolindersBil.Web.Controllers
 
 
             return View(vm);
+
+
         }
 
+        [HttpPost]
         public IActionResult SendLink(SingleVehicleViewModel model)
         {
 
@@ -121,11 +125,9 @@ namespace BolindersBil.Web.Controllers
                 client.Disconnect(true);
             }
                 ModelState.Clear();
-            return RedirectToAction(nameof(Index));
-            //Need to redirect on the same page... Vehicle/vehicie/id
-            //Todo Need a failsave if input value = empty
-            //else { ModelState.Clear(); return RedirectToRoute(); }
+            return Redirect(model.Url);
         }
+
 
     }
 }
