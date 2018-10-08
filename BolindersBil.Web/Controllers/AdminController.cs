@@ -10,6 +10,7 @@ using BolindersBil.Web.Infrastructure;
 using BolindersBil.Web.Models;
 using BolindersBil.Web.Repositories;
 using BolindersBil.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BolindersBil.Web.Controllers
 {
+    //[Authorize]
     public class AdminController : Controller
     {
         private IVehicleRepository vehicleRepo;
@@ -92,7 +94,6 @@ namespace BolindersBil.Web.Controllers
 
 
         [HttpGet]
-
         public IActionResult Create(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
