@@ -33,7 +33,7 @@
                         <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
                         <p>@p.Year | @p.Mileage km | @p.Dealership.City</p>
                         <h4>@($"{p.Price:C0}")</h4>
-                        <a asp-controller="admin" asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
+                        <a asp-controller="admin" asp-action="Edit" class="btn btn-primary" asp-route-vehicleId="@p.Id">Redigera</a>
                         <input type="hidden" name="vehicleID" value="@p.Id" />
                         <button type="submit" class="btn btn-danger">Ta bort</button>
                         <div class="form-check">

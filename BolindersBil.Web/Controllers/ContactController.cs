@@ -18,6 +18,7 @@ namespace BolindersBil.Web.Controllers
         {
             _appSettings = settings.Value;
         }
+        [Route("kontakt")]
         public ViewResult Index()
         {
             return View();
@@ -26,7 +27,7 @@ namespace BolindersBil.Web.Controllers
         public IActionResult SendMail(string name, string title, string email, string msg, string dealershipEmail)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
+            message.From.Add(new MailboxAddress("mail.bolinder.bil@gmail.com"));
             message.To.Add(new MailboxAddress(dealershipEmail));
 
             message.Subject = title;
@@ -40,7 +41,7 @@ namespace BolindersBil.Web.Controllers
             using (var client = new SmtpClient())
             {
                 client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
-                //client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord); Change when you have a smtp server
+                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
                 client.Send(message);
                 client.Disconnect(true);
             }
