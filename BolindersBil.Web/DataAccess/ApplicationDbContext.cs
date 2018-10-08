@@ -13,6 +13,7 @@ namespace BolindersBil.Web.DataAccess
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Dealership> Dealerships { get; set; }
+        public DbSet<FileUpload> Fileuploads { get; set; }
     }
 
 }

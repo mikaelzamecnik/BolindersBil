@@ -68,15 +68,10 @@
     <label>Klicka i rutan om bilen är begagnad</label>
     <input type="checkbox" asp-for="Vehicle.Used" class="form-control" />
 </div>
-
-
-@*<div class="form-group"> This is for
-    <label asp-for="Vehicle.ImageUrl"></label>
-    <textarea asp-for="Vehicle.ImageUrl" class="form-control"></textarea>
-</div>*@
-
-
-
+<div class="form-group">
+    <label>Ladda up bild</label>
+    <input type="file" name="images" id="images" multiple />
+</div>
 <div class="form-group">
     <label>Klicka i rutan om bilen är leasebar</label>
     <input type="checkbox" asp-for="Vehicle.Lease" class="form-control" />

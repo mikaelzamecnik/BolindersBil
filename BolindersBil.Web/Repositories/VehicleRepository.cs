@@ -17,9 +17,10 @@ namespace BolindersBil.Web.Repositories
             ctx = context;
         }
 
-        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles.Include(c => c.Brand).Include(d => d.Dealership);
+        public IEnumerable<Vehicle> Vehicles => ctx.Vehicles.Include(c => c.Brand).Include(d => d.Dealership).Include(f => f.FileUpload);
         public IEnumerable<Brand> Brands => ctx.Brands;
         public IEnumerable<Dealership> Dealerships => ctx.Dealerships;
+        public IEnumerable<FileUpload> FileUploads => ctx.Fileuploads;
 
         public void SaveVehicle(Vehicle v)
         {
