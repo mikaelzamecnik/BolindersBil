@@ -96,7 +96,14 @@ namespace BolindersBil.Web.Controllers
                 NextPage = ++page
             };
 
-            return View(vm);
+            if (User.Identity.IsAuthenticated)
+            {
+                return View("~/Views/Admin/Index.cshtml", vm);
+            }
+            else
+            {
+                return View("~/Views/Home/Index.cshtml", vm);
+            }
         }
     }
 }
