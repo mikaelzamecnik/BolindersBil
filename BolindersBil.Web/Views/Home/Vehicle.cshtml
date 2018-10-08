@@ -9,8 +9,22 @@
 <hr />
 <div class="card">
     <div class="card-body">
-        <img class="img-fluid" src="@Model.Vehicle.ImageUrl">
-        <h4>Pris: @($"{Model.Vehicle.Price:C0}")</h4>
+        <img class="img-fluid" src="@Model.Vehicle.ImageUrl"><br /><br />
+        <h4>
+            Pris: @($"{Model.Vehicle.Price:C0}") inkl. moms
+            @if (Model.Vehicle.Lease == true)
+            {
+                @($" ({x:C0} exkl. moms)")
+            }
+        </h4>
+        @if (Model.Vehicle.Used == true)
+        {
+            <strong>Begagnad</strong><br />
+        }
+        else
+        {
+            <strong>Ny bil</strong><br />
+        }
         <strong>Årsmodell:</strong> @Model.Vehicle.Year<br />
         <strong>Kilometer:</strong> @Model.Vehicle.Mileage<br />
         <strong>Registreringsnummer:</strong> @Model.Vehicle.RegistrationNumber<br />
@@ -20,7 +34,6 @@
         <strong>Bränsletyp:</strong> @Model.Vehicle.Fuel<br />
         <strong>Hästkrafter:</strong> @Model.Vehicle.Horsepower<br />
         <strong>Begagnad:</strong> @Model.Vehicle.Used<br />
-        <strong>Leasbar för företag:</strong> @Model.Vehicle.Lease<br />
         <strong>Kontakta Säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:+46 @Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
         <strong>Extrautrustning:</strong><br />
         <ul>
@@ -44,4 +57,21 @@
             </form>
         </div>
     </div>
-    </div>
+</div><br />
+<h5>Relaterade fordon</h5>
+<div class="card-deck">
+    @foreach (var v in Model.RelatedVehicles)
+    {
+            <div class="card">
+                <div class="card-body">
+                    <a asp-action="Vehicle" asp-route-vehicleId="@v.Id">
+                        <img class="img-fluid" src="@v.ImageUrl"><br />
+                        <h6>@v.Brand.Name @v.Model  @v.ModelDescription</h6>
+                        <p>@v.Year | @v.Mileage km | @v.Dealership.City</p>
+                        <strong>@($"{v.Price:C0}")</strong>
+                        <input type="hidden" name="vehicleID" value="@v.Id" />
+                    </a>
+                </div>
+            </div>
+    }
+</div>

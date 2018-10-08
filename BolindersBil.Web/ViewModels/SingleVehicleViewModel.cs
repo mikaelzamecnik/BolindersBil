@@ -11,8 +11,7 @@ namespace BolindersBil.Web.ViewModels
     public class SingleVehicleViewModel
     {
         public Vehicle Vehicle { get; set; }
-        public List<SelectListItem> Brands { get; set; }
-        public List<SelectListItem> DealerShips { get; set; }
+        public IEnumerable<Vehicle> RelatedVehicles { get; set; }
         public string Url { get; set; }
         public string SendMail { get; set; }
         public int ResendId { get; set; }
