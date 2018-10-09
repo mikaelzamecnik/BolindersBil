@@ -1,4 +1,3 @@
-
 @model SingleVehicleViewModel
 @{
     ViewData["Title"] = $"Bolinders Bil : {Model.Vehicle.Brand.Name} {Model.Vehicle.Model} {Model.Vehicle.ModelDescription}";
@@ -59,36 +58,27 @@
                     </form>
                 </div>
             </div>
-
             <div class="col-lg-6">
-                    <h4>Månadskostnad</h4>
-                    @{
-
-                        var calc = (int)Model.Vehicle.Price * 0.8;
-
-
-                        if (Model.Vehicle.Lease == true)
-                        {
-                            var cashlease = calc * 0.2;
-                            <p><strong>Kontantinsats:</strong> @($" {cashlease:C0}") </p>
-                            <input id="amount" type="number" value="@Math.Round(calc)" min="0" max="10000000" step="any" onchange="carLoan();" hidden />
-                        }
-                        if (Model.Vehicle.Lease == false)
-                        {
-                            var cashnonlease = (int)Model.Vehicle.Price * 0.2;
-                            <p><strong>Kontantinsats:</strong> @($" {cashnonlease:C0}") </p>
-                            <input id="amount" type="number" value="@Math.Round(calc)" min="0" max="10000000" step="any" onchange="carLoan();" hidden />
-                        }
-
-                    }
-                    <p><strong>Ränta: </strong><input class="form-control w-50" id="interest_rate" type="number" min="0" max="100" value="4.5" step=".1" onchange="carLoan();">%</p>
-                    <p><strong>Avbetalningstid(månader): </strong><input class="form-control w-50" id="months" type="number" min="12" max="72" value="36" step="12" onchange="carLoan();"></p>
-                    <button class="btn btn-primary" onclick="carLoan();">Räkna ut</button>
-                    <h2 id="payment"></h2>
-                </div>
+                <h4>Billån</h4>
+                <strong>Kontantinsats:</strong> @($" {(int)Model.Vehicle.Price * 0.2:C0} (inkl. moms)")<br />
+                <strong>Ränta:</strong> 4,5%<br />
+                <input id="amount" type="number" value="@Math.Round((int)Model.Vehicle.Price * 0.8)" min="0" max="10000000" step="any" onchange="carLoan();" hidden />
+                <input class="form-control w-50" id="interest_rate" type="number" min="0" max="100" value="4.5" step=".1" onchange="carLoan();" hidden>
+                <strong>Avbetalningstid: </strong>
+                <select class="form-control w-50" id="months" onchange="carLoan();">
+                    <option value="12">12 månader</option>
+                    <option value="24">24 månader</option>
+                    <option value="36">36 månader</option>
+                    <option value="48">48 månader</option>
+                    <option value="60">60 månader</option>
+                    <option value="72">72 månader</option>
+                </select>
+                <p id="payment"></p>
             </div>
-    </div>
-</div><br />
+        </div>
+    </div><br />
+</div>
+<br />
 <h5>Relaterade fordon</h5>
 <div class="card-deck">
     @foreach (var v in Model.RelatedVehicles)
@@ -106,5 +96,3 @@
         </div>
     }
 </div>
-<br />
-
