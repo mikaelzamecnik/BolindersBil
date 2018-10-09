@@ -6,8 +6,6 @@
 
     if (inputValue === '') {
         document.getElementById("myInput").value = "Ingen extrautrustning";
-    } else {
-
     }
     document.getElementById("myInput").value = "";
 
@@ -17,8 +15,8 @@
         close[i].onclick = function () {
             var div = this.parentElement;
             div.style.display = "none";
-        }
+        };
     }
-    var newOne = (inputValue + '|');
+    var newOne = inputValue + '|';
     $('#attrtext').append(newOne);
 }
