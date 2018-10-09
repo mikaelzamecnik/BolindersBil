@@ -35,7 +35,7 @@ function carLoan() {
     var interest = amount * (interest_rate * .01) / months;
     var payment = (amount / months + interest).toFixed(2);
     payment = payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('payment').innerHTML = "Månadskostnad från = " + payment+ " Kr";
+    document.getElementById('payment').innerHTML = "<strong>Månadskostnad från:</strong> " + payment+ " Kr (inkl. moms)";
 }
 function newElement() {
 

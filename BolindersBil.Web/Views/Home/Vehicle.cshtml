@@ -77,20 +77,23 @@
     </div><br />
 </div>
 <br />
-<h5>Relaterade fordon</h5>
-<div class="card-deck">
-    @foreach (var v in Model.RelatedVehicles)
-    {
-        <div class="card">
-            <div class="card-body">
-                <a asp-action="Vehicle" asp-route-vehicleId="@v.Id">
-                    <img class="img-fluid" src="@v.ImageUrl"><br />
-                    <h6>@v.Brand.Name @v.Model  @v.ModelDescription</h6>
-                    <p>@v.Year | @v.Mileage km | @v.Dealership.City</p>
-                    <strong>@($"{v.Price:C0}")</strong>
-                    <input type="hidden" name="vehicleID" value="@v.Id" />
-                </a>
+@if (Model.RelatedVehicles != null && Model.RelatedVehicles.GetEnumerator().MoveNext())
+{
+    <h5>Relaterade fordon</h5>
+    <div class="card-deck">
+        @foreach (var v in Model.RelatedVehicles)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <a asp-action="Vehicle" asp-route-vehicleId="@v.Id">
+                        <img class="img-fluid" src="@v.ImageUrl"><br />
+                        <h6>@v.Brand.Name @v.Model  @v.ModelDescription</h6>
+                        <p>@v.Year | @v.Mileage km | @v.Dealership.City</p>
+                        <strong>@($"{v.Price:C0}")</strong>
+                        <input type="hidden" name="vehicleID" value="@v.Id" />
+                    </a>
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
