@@ -1,7 +1,6 @@
 @model SingleVehicleViewModel
 @{
     ViewData["Title"] = $"Bolinders Bil : {Model.Vehicle.Brand.Name} {Model.Vehicle.Model} {Model.Vehicle.ModelDescription}";
-    var x = (int)Model.Vehicle.Price * 0.8;
 }
 
 <h2>@Model.Vehicle.Brand.Name @Model.Vehicle.Model  @Model.Vehicle.ModelDescription</h2>
@@ -15,7 +14,7 @@
                     Pris: @($"{Model.Vehicle.Price:C0}") inkl. moms
                     @if (Model.Vehicle.Lease == true)
                     {
-                        @($" ({x:C0} exkl. moms)")
+                        @($" ({(int)Model.Vehicle.Price * 0.8:C0} exkl. moms)")
                     }
                 </h4>
                 @if (Model.Vehicle.Used == true)
@@ -34,7 +33,6 @@
                 <strong>Växellådstyp:</strong> @Model.Vehicle.Transmission<br />
                 <strong>Bränsletyp:</strong> @Model.Vehicle.Fuel<br />
                 <strong>Hästkrafter:</strong> @Model.Vehicle.Horsepower<br />
-                <strong>Begagnad:</strong> @Model.Vehicle.Used<br />
                 <strong>Kontakta säljaren: </strong>Bilen finns i @Model.Vehicle.Dealership.City, <a href="tel:+46 @Model.Vehicle.Dealership.Phone">@Model.Vehicle.Dealership.Phone</a><br />
                 <strong>Extrautrustning:</strong><br />
                 <ul>
