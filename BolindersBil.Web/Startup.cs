@@ -70,11 +70,16 @@ namespace BolindersBil.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+                //app.UseStatusCodePagesWithReExecute("/errors/Status{0}"); // Ask Patrik for help
+            }
+            else
+            {
+                app.UseExceptionHandler("/error.html");
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseAuthentication();
 
             app.UseCookiePolicy();
