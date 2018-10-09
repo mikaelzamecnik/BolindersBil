@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Identity;
+using BolindersBil.Web.Models.NewsModels;
 
 namespace BolindersBil.Web
 {
@@ -41,6 +42,7 @@ namespace BolindersBil.Web
 
             // Add framework services
             services.AddMvc();
+            services.AddTransient<ArticlesResult>();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conn));
 
             services.AddIdentity<IdentityUser, IdentityRole>().

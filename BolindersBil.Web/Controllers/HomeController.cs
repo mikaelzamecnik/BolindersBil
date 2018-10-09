@@ -12,6 +12,8 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Web.Http;
 using BolindersBil.Web.Infrastructure;
+using BolindersBil.Web.Models.NewsModels;
+using BolindersBil.Web.Constants;
 
 namespace BolindersBil.Web.Controllers
 {
@@ -26,9 +28,19 @@ namespace BolindersBil.Web.Controllers
             vehicleRepo = vehicleRepository;
             _appSettings = settings.Value;
         }
-
-        public IActionResult Index(string state, int page = 1)
+        public IActionResult Index(ArticlesResult articlesResuls,string state, int page = 1)
        {
+            var newsApiClient = new NewsApiClient(_appSettings.NewsApiKey, _appSettings.NewsApiUrl);
+
+            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+            {
+                Sources = { "the-new-york-times" },
+                Q = "Apple",
+                SortBy = SortBys.PublishedAt,
+                Language = Languages.EN,
+                From = new DateTime(2018, 09, 24)
+            });
+
             var vehicles = vehicleRepo.Vehicles;
             var brands = vehicleRepo.Brands;
 
@@ -79,7 +91,8 @@ namespace BolindersBil.Web.Controllers
                 Brands = brands,
                 BrandsInStock = brandsInStock,
                 ShowButton = showButton,
-                NextPage = ++page
+                NextPage = ++page,
+                ArticlesResults = articlesResponse
             };
 
             return View(vm);
