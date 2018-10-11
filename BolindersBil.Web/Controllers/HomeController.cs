@@ -32,18 +32,8 @@ namespace BolindersBil.Web.Controllers
             _appSettings = settings.Value;
             _context = context;
         }
-        public IActionResult Index(ArticlesResult articlesResuls,string state, int page = 1)
+        public IActionResult Index(string state, int page = 1)
        {
-            var newsApiClient = new NewsApiClient(_appSettings.NewsApiKey, _appSettings.NewsApiUrl);
-
-            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
-            {
-                Sources = { "the-new-york-times" },
-                Q = "Apple",
-                SortBy = SortBys.PublishedAt,
-                Language = Languages.EN,
-                From = new DateTime(2018, 09, 24)
-            });
 
             var vehicles = vehicleRepo.Vehicles;
             var brands = vehicleRepo.Brands;
@@ -89,6 +79,16 @@ namespace BolindersBil.Web.Controllers
                 showButton = false;
             }
 
+            var newsApiClient = new NewsApiClient(_appSettings.NewsApiKey, _appSettings.NewsApiUrl);
+
+            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+            {
+                Sources = { "the-new-york-times" },
+                Q = "Apple",
+                SortBy = SortBys.PublishedAt,
+                Language = Languages.EN,
+                From = new DateTime(2018, 09, 24)
+            });
             var vm = new VehicleListViewModel
             {
                 Vehicles = vehiclesInPageLimit,

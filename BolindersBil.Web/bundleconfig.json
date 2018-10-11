@@ -6,7 +6,8 @@
       "wwwroot/js/CountMontly.js",
       "wwwroot/js/EditAttributeList.js",
       "wwwroot/js/GoogleGeoCode.js",
-      "wwwroot/js/Sendlink.js"
+      "wwwroot/js/Sendlink.js",
+      "wwwroot/js/imgGallery.js"
     ]
   },
   {

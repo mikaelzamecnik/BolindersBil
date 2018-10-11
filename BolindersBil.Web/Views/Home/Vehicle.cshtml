@@ -47,7 +47,21 @@
                 </ul><br />
             </div>
             <div class="col-lg-4">
-
+                <h4>Billån</h4>
+                <strong>Kontantinsats:</strong> @($" {(int)Model.Vehicle.Price * 0.2:C0} (inkl. moms)")<br />
+                <strong>Ränta:</strong> 4,5%<br />
+                <input id="amount" type="number" value="@Math.Round((int)Model.Vehicle.Price * 0.8)" min="0" max="10000000" step="any" onchange="carLoan();" hidden />
+                <input class="form-control w-50" id="interest_rate" type="number" min="0" max="100" value="4.5" step=".1" onchange="carLoan();" hidden>
+                <strong>Avbetalningstid: </strong>
+                <select class="form-control w-50" id="months" onchange="carLoan();">
+                    <option value="12">12 månader</option>
+                    <option value="24">24 månader</option>
+                    <option value="36">36 månader</option>
+                    <option value="48">48 månader</option>
+                    <option value="60">60 månader</option>
+                    <option value="72">72 månader</option>
+                </select>
+                <p id="payment"></p>
             </div>
             <div class="col-lg-4">
                 <div class="thumbnails">
@@ -67,30 +81,6 @@
                     <input asp-for="Url" type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-info" disabled>Skicka Annonslänk</button>
                     <input asp-for="ResendId" type="hidden" value="@Model.Vehicle.Id" />
                 </form>
-                <div class="form-inline">
-                    <form asp-action="SendLink" asp-controller="Home" method="post">
-                        <input asp-for="SendMail" type="email" id="textsend" onkeyup="success()" placeholder="Skriv in e-postadressen..." class="form-control mr-1" />
-                        <input asp-for="Url" type="hidden" id="UrlAdvert" value='@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")' /><button type="submit" id="send" class="btn btn-primary" disabled>Skicka Annonslänk</button>
-                        <input asp-for="ResendId" type="hidden" value="@Model.Vehicle.Id" />
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <h4>Billån</h4>
-                <strong>Kontantinsats:</strong> @($" {(int)Model.Vehicle.Price * 0.2:C0} (inkl. moms)")<br />
-                <strong>Ränta:</strong> 4,5%<br />
-                <input id="amount" type="number" value="@Math.Round((int)Model.Vehicle.Price * 0.8)" min="0" max="10000000" step="any" onchange="carLoan();" hidden />
-                <input class="form-control w-50" id="interest_rate" type="number" min="0" max="100" value="4.5" step=".1" onchange="carLoan();" hidden>
-                <strong>Avbetalningstid: </strong>
-                <select class="form-control w-50" id="months" onchange="carLoan();">
-                    <option value="12">12 månader</option>
-                    <option value="24">24 månader</option>
-                    <option value="36">36 månader</option>
-                    <option value="48">48 månader</option>
-                    <option value="60">60 månader</option>
-                    <option value="72">72 månader</option>
-                </select>
-                <p id="payment"></p>
             </div>
         </div>
     </div><br />
@@ -115,7 +105,7 @@
             </div>
         }
     </div>
-</div>
+}
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -134,13 +124,6 @@
                                 <img class="d-block w-100" data-target="#carouselExampleIndicators" data-slide-to="0" src="@image.FilePath" alt="First slide" />
                             </div>
                         }
-
-                        @*<div class="carousel-item">
-                                <img class="d-block w-100" src="~/Images/snus123/8dc364bb-d60b-41db-90d6-93b6676cbf64campus_skrivbordsbakgrund.jpg" alt="Second slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="~/Images/snus123/acdbb671-2191-4966-bc22-c995f34118f752c.jpg" alt="Third slide">
-                            </div>*@
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="background-color:rgba(0,0,0,0.5);">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -158,36 +141,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-
-        /* GLOBAL VARIABLES */
-
-        var carouselImgElem = $(".carousel-item");
-        //carouselImgElem.first().addClass("active");
-        var thumbnailImg = $(".thumbnails").find("img");
-
-        thumbnailImg.on("click", function () {
-            var yyy = $(this).parent().index();
-            console.log(yyy);
-            $(".carousel-item").eq(yyy).addClass("active");
-            //carouselImgElem.index(yyy).addClass("active");
-            //var index = $(this).parent().index();
-
-            //var test = $('.thumbnails img').eq(index);
-        });
-
-        $('#exampleModal').on('hidden.bs.modal', function (e) {
-            // do something...
-            carouselImgElem.removeClass("active");
-            //carouselImgElem.first().addClass("active");
-
-            console.log("close modal");
-        })
-        $('#exampleModal').on('show.bs.modal', function (e) {
-            // do something...
-
-            console.log(e);
-        })
-    });
-</script>
