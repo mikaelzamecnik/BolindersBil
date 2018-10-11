@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -12,6 +12,8 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Web.Http;
 using BolindersBil.Web.Infrastructure;
+using BolindersBil.Web.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using BolindersBil.Web.Models.NewsModels;
 using BolindersBil.Web.Constants;
 
@@ -20,13 +22,15 @@ namespace BolindersBil.Web.Controllers
     public class HomeController : Controller
     {
         private IVehicleRepository vehicleRepo;
+        private ApplicationDbContext _context;
         public int PageLimit = 8;
         private CustomAppSettings _appSettings;
 
-        public HomeController(IVehicleRepository vehicleRepository,IOptions<CustomAppSettings> settings)
+        public HomeController(IVehicleRepository vehicleRepository,IOptions<CustomAppSettings> settings, ApplicationDbContext context)
         {
             vehicleRepo = vehicleRepository;
             _appSettings = settings.Value;
+            _context = context;
         }
         public IActionResult Index(ArticlesResult articlesResuls,string state, int page = 1)
        {
@@ -102,15 +106,12 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
-
             var relatedVehicles = vehicleRepo.Vehicles.Where(x => x.BrandId.Equals(vehicle.BrandId)).Where(x => x.Price > vehicle.Price).Take(4);
-
             var vm = new SingleVehicleViewModel
             {
                 Vehicle = vehicle,
                 RelatedVehicles = relatedVehicles
             };
-
 
             return View(vm);
 

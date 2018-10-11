@@ -113,15 +113,17 @@ namespace BolindersBil.Web.Controllers
 
             if (ModelState.IsValid && vm != null)
             {
-                /* Paths */
+                var imageFolder = "\\Images";
+                /* Paths to save image in disk */
                 // to wwwroot
                 string rootPath = _appEnvironment.WebRootPath;
                 // to Images folder
-                string imageFolderPath = rootPath + "\\Images";
+                string imageFolderPath = rootPath + imageFolder;
                 // to Registration folder
                 string targetFolder = imageFolderPath + "\\" + vm.Vehicle.RegistrationNumber;
                 /* Create Registration folder*/
                 Directory.CreateDirectory(targetFolder);
+
                 // Array to store each image
                 List<FileUpload> gallery = new List<FileUpload>();
                 foreach (var image in images)
@@ -129,7 +131,14 @@ namespace BolindersBil.Web.Controllers
                     Guid uniqueGuid = Guid.NewGuid();
                     string targetFileName = uniqueGuid + image.FileName;
                     string finalTargetFilePath = targetFolder + "\\" + targetFileName;
-                    //Save images into RegNr folder
+                    // Replace backslash with forward slash
+                    //finalTargetFilePath = finalTargetFilePath.Replace("\\", "/");
+
+
+
+                    /* Saves */
+
+                    //Save images into RegNr folder on disk
                     if (image.Length > 0)
                     {
                         using (var stream = new FileStream(finalTargetFilePath, FileMode.Create))
@@ -137,13 +146,28 @@ namespace BolindersBil.Web.Controllers
                             await image.CopyToAsync(stream);
                         }
                     }
+
+
+                    // Resize and save the image under the correct folder. Calls on the ImageResize function.
+                    string resizedImageFolder = targetFolder + "\\Image_resized";
+                    if (!Directory.Exists(resizedImageFolder))
+                    {
+                        Directory.CreateDirectory(resizedImageFolder);
+                    }
+                    ImageResize(finalTargetFilePath, resizedImageFolder + "\\" + targetFileName, 100);
+
+                    
+
+                    // Dynamik saving path
                     var imageProperty = new FileUpload
                     {
                         FileTitle = uniqueGuid,
-                        FilePath = finalTargetFilePath
+                        FilePath = imageFolder.Replace("\\", "/") + "/" + vm.Vehicle.RegistrationNumber + "/" + targetFileName
                     };
                     gallery.Add(imageProperty);
                 }
+
+
 
                 // Save information to database
                 vm.Vehicle.FileUpload = gallery;
