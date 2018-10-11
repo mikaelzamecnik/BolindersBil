@@ -11,6 +11,7 @@ namespace BolindersBil.Web.Repositories
         IEnumerable<Vehicle> Vehicles { get; }
         IEnumerable<Brand> Brands {get;}
         IEnumerable<Dealership> Dealerships { get; }
+        //List<FileUpload> FileUploads { get; }
 
         void SaveVehicle(Vehicle v);
         Vehicle DeleteVehicle(int vehicleId);

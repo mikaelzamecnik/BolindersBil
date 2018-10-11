@@ -12,19 +12,23 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Web.Http;
 using BolindersBil.Web.Infrastructure;
+using BolindersBil.Web.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace BolindersBil.Web.Controllers
 {
     public class HomeController : Controller
     {
         private IVehicleRepository vehicleRepo;
+        private ApplicationDbContext _context;
         public int PageLimit = 8;
         private CustomAppSettings _appSettings;
 
-        public HomeController(IVehicleRepository vehicleRepository,IOptions<CustomAppSettings> settings)
+        public HomeController(IVehicleRepository vehicleRepository,IOptions<CustomAppSettings> settings, ApplicationDbContext context)
         {
             vehicleRepo = vehicleRepository;
             _appSettings = settings.Value;
+            _context = context;
         }
 
         public IActionResult Index(string state, int page = 1)
@@ -85,9 +89,11 @@ namespace BolindersBil.Web.Controllers
             return View(vm);
         }
 
+        [HttpGet]
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
+
             var vm = new SingleVehicleViewModel
             {
                 DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
@@ -95,7 +101,6 @@ namespace BolindersBil.Web.Controllers
                 Vehicle = vehicle
 
             };
-
 
             return View(vm);
         }
