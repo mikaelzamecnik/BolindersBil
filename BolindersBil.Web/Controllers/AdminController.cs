@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BolindersBil.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AdminController : Controller
     {
         private IVehicleRepository vehicleRepo;

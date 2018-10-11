@@ -41,17 +41,20 @@
 {
     <a class="btn btn-primary" href="?Page=@Model.NextPage">Visa fler</a><br /><br />
 }
-<h3>Nyheter</h3>
-@foreach (var article in Model.ArticlesResults.Articles.Take(3))
+@if (Model.ArticlesResults != null)
 {
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">@article.Title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@article.Author - <i><small>@article.PublishedAt</small></i></h6>
-            <p class="card-text">@NewsApiExtension.ShortenString(article.Description, 50)...</p>
-            <a href="@article.Url" target="_blank" class="card-link">Läs mer</a>
-            <br />
+    <h3>Nyheter</h3>
+    @foreach (var article in Model.ArticlesResults.Articles.Take(3))
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@article.Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@article.Author - <i><small>@article.PublishedAt</small></i></h6>
+                <p class="card-text">@NewsApiExtension.ShortenString(article.Description, 50)...</p>
+                <a href="@article.Url" target="_blank" class="card-link">Läs mer</a>
+                <br />
+            </div>
         </div>
-    </div>
-    <br />
+        <br />
+    }
 }
