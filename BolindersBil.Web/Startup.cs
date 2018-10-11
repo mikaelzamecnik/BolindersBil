@@ -71,7 +71,7 @@ namespace BolindersBil.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
-                //app.UseStatusCodePagesWithReExecute("/errors/Status{0}"); // Ask Patrik for help
+                
             }
             else
             {
@@ -86,6 +86,8 @@ namespace BolindersBil.Web
             //app.UseMvcWithDefaultRoute();
 
             // Add custom route template
+
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseMvc(routes =>
             {

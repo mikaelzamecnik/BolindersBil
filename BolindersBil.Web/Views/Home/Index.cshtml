@@ -10,15 +10,9 @@
 {
     <div class="card text-center">
         <div class="card-body">
-            @foreach (var bis in Model.BrandsInStock)
+            @foreach (var b in Model.BrandsInStock)
             {
-                @foreach (var b in Model.Brands)
-                {
-                    @if (b.Id == bis)
-                    {
-                        <a href="sök?SearchString=@b.Name"><img height="70" src="@b.LogoUrl" alt="@b.Name" title="@b.Name"></a>
-                    }
-                }
+                <a href="sök?SearchString=@b.Name"><img height="70" src="@b.LogoUrl" alt="@b.Name" title="@b.Name"></a>
             }
         </div>
     </div>
