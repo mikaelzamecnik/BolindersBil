@@ -91,6 +91,7 @@ namespace BolindersBil.Web.Controllers
                 Language = Languages.EN,
                 From = new DateTime(2018, 09, 24)
             });
+
             var vm = new VehicleListViewModel
             {
                 Vehicles = vehiclesInPageLimit,
