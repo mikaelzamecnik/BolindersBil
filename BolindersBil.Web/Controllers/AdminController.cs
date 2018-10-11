@@ -132,7 +132,7 @@ namespace BolindersBil.Web.Controllers
                     string targetFileName = uniqueGuid + image.FileName;
                     string finalTargetFilePath = targetFolder + "\\" + targetFileName;
                     // Replace backslash with forward slash
-                    //finalTargetFilePath = finalTargetFilePath.Replace("\\", "/");
+                    finalTargetFilePath = finalTargetFilePath.Replace("\\", "/");
 
 
 
@@ -156,7 +156,7 @@ namespace BolindersBil.Web.Controllers
                     }
                     ImageResize(finalTargetFilePath, resizedImageFolder + "\\" + targetFileName, 100);
 
-                    
+
 
                     // Dynamik saving path
                     var imageProperty = new FileUpload
@@ -201,11 +201,11 @@ namespace BolindersBil.Web.Controllers
                 // Output as .Jpg
                 using (var output = System.IO.File.Open(outputImagePath, FileMode.Create))
                 {
-                    // Setup jpg 
+                    // Setup jpg
                     var qualityParamId = Encoder.Quality;
                     var encoderParameters = new EncoderParameters(1);
                     encoderParameters.Param[0] = new EncoderParameter(qualityParamId, quality);
-                    // Save Bitmap as Jpg 
+                    // Save Bitmap as Jpg
                     var codec = ImageCodecInfo.GetImageDecoders().FirstOrDefault(c => c.FormatID == ImageFormat.Jpeg.Guid);
                     newDrawArea.Save(output, codec, encoderParameters);
                     output.Close();
