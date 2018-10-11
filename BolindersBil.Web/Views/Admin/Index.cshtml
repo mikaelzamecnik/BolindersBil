@@ -19,7 +19,7 @@
 </div>
 <br />
 
-@foreach (var p in Model.Vehicles.OrderBy(p => p.DateUpdated))
+@foreach (var p in Model.Vehicles.OrderBy(p => p.DateAdded).ThenBy(p => p.DateUpdated))
 {
     <div class="card">
         <div class="card-body">
