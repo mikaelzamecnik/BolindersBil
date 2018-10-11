@@ -72,17 +72,24 @@ namespace BolindersBil.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+                
+            }
+            else
+            {
+                app.UseExceptionHandler("/error.html");
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseAuthentication();
 
             app.UseCookiePolicy();
             //app.UseMvcWithDefaultRoute();
 
             // Add custom route template
+
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseMvc(routes =>
             {

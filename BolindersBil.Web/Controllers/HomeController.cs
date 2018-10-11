@@ -32,11 +32,15 @@ namespace BolindersBil.Web.Controllers
             _appSettings = settings.Value;
             _context = context;
         }
+        [Route("Errors/{code:int}")]
+        public IActionResult Errors(int code)
+        {
+            return View(code.ToString());
+        }
         public IActionResult Index(string state, int page = 1)
        {
 
             var vehicles = vehicleRepo.Vehicles;
-            var brands = vehicleRepo.Brands;
 
             if (state == "nya")
             {
@@ -52,17 +56,15 @@ namespace BolindersBil.Web.Controllers
 
            // Generate a list with the BrandId of cars in stock and place in the viewmodel further down
 
-           List<int> brandsInStock = new List<int>();
+           List<Brand> brandsInStock = new List<Brand>();
 
-            foreach (var b in vehicles)
+            foreach (var v in vehicles)
             {
-                if (!brandsInStock.Contains(b.BrandId))
+                if (!brandsInStock.Contains(v.Brand))
                 {
-                    brandsInStock.Add(b.BrandId);
+                    brandsInStock.Add(v.Brand);
                 }
             }
-
-            // Code for PageLimit button at the bottom
 
             var toSkip = (page - 1) * PageLimit;
             var vehiclesInPageLimit = vehicles
@@ -92,7 +94,6 @@ namespace BolindersBil.Web.Controllers
             var vm = new VehicleListViewModel
             {
                 Vehicles = vehiclesInPageLimit,
-                Brands = brands,
                 BrandsInStock = brandsInStock,
                 ShowButton = showButton,
                 NextPage = ++page,
@@ -106,6 +107,10 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
             var relatedVehicles = vehicleRepo.Vehicles.Where(x => x.BrandId.Equals(vehicle.BrandId)).Where(x => x.Price > vehicle.Price).Take(4);
             var vm = new SingleVehicleViewModel
             {
@@ -114,7 +119,6 @@ namespace BolindersBil.Web.Controllers
             };
 
             return View(vm);
-
 
         }
 

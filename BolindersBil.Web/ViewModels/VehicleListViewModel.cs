@@ -10,7 +10,7 @@ namespace BolindersBil.Web.ViewModels
     public class VehicleListViewModel
     {
         public IEnumerable<Vehicle> Vehicles { get; set; }
-        public List<int> BrandsInStock { get; set; }
+        public List<Brand> BrandsInStock { get; set; }
         public IEnumerable<Brand> Brands { get; set; }
         public ArticlesResult ArticlesResults { get; set; }
         public bool ShowButton { get; set; }
