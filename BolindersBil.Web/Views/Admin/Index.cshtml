@@ -2,9 +2,8 @@
 @{
     Layout = "_Admin";
 }
-@*<partial name="_SearchPartial" />*@
+<partial name="_SearchPartial" />
 <br />
-@*<input type="checkbox" id="checkAll"> Markera alla*@
 <div class="card">
     <div class="card-body">
         <div class="custom-control custom-checkbox">
@@ -12,7 +11,7 @@
             <label class="custom-control-label" for="checkAll">Markera alla fordon i listan nedan</label>
         </div>
         <br />
-        <form asp-action="DeleteBulk" onsubmit="return confirm('Vill du verkligen ta bort fordonen?')" method="post">
+        <form asp-controller="admin" asp-action="DeleteBulk" onsubmit="return confirm('Vill du verkligen ta bort fordonen?')" method="post">
             <input type="hidden" id="vehiclesIdToDelete" name="vehiclesIdToDelete" />
             <button type="submit" class="btn btn-danger" id="deleteBulk">Ta bort markerade fordon</button>
         </form>
@@ -20,7 +19,7 @@
 </div>
 <br />
 
-@foreach (var p in Model.Vehicles.OrderBy(p => p.DateUpdated))
+@foreach (var p in Model.Vehicles.OrderBy(p => p.DateAdded).ThenBy(p => p.DateUpdated))
 {
     <div class="card">
         <div class="card-body">
@@ -30,11 +29,11 @@
                 </div>
                 <div class="col-md-8">
                     <p class="float-right"><i><small>Tillagd: @p.DateAdded</small></i><br /><i><small>Uppdaterad: @p.DateUpdated</small></i></p>
-                    <form asp-action="Delete" onsubmit="return confirm('Vill du verkligen ta bort fordonet?')" method="post">
+                    <form asp-controller="admin" asp-action="Delete" onsubmit="return confirm('Vill du verkligen ta bort fordonet?')" method="post">
                         <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
                         <p>@p.Year | @p.Mileage km | @p.Dealership.City</p>
                         <h4>@($"{p.Price:C0}")</h4>
-                        <a asp-action="Edit" class="btn btn-warning" asp-route-vehicleId="@p.Id">Redigera</a>
+                        <a asp-controller="admin" asp-action="Edit" class="btn btn-primary" asp-route-vehicleId="@p.Id">Redigera</a>
                         <input type="hidden" name="vehicleID" value="@p.Id" />
                         <button type="submit" class="btn btn-danger">Ta bort</button>
                         <div class="form-check">

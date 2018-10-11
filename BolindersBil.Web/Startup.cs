@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Identity;
+using BolindersBil.Web.Models.NewsModels;
 
 namespace BolindersBil.Web
 {
@@ -40,7 +42,24 @@ namespace BolindersBil.Web
 
             // Add framework services
             services.AddMvc();
+            services.AddTransient<ArticlesResult>();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conn));
+
+            services.AddIdentity<IdentityUser, IdentityRole>().
+                AddEntityFrameworkStores<ApplicationDbContext>().
+                AddDefaultTokenProviders();
+
+            services.AddTransient<IIdentitySeeder, IdentitySeeder>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 3;
+            });
+
             services.AddTransient<IVehicleRepository, VehicleRepository>();
             services.Configure<CustomAppSettings>(_configuration.GetSection("CustomAppSettings"));
             // Make all generated URLs lowercase
@@ -48,7 +67,7 @@ namespace BolindersBil.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx, IIdentitySeeder identitySeeder)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +76,9 @@ namespace BolindersBil.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+
             app.UseCookiePolicy();
             //app.UseMvcWithDefaultRoute();
 
@@ -67,7 +89,7 @@ namespace BolindersBil.Web
                 // -> /bilar/1
                 routes.MapRoute(
                     name: "bilar/vehicleId",
-                    template: "bilar/{vehicleId:int}",
+                    template: "bilar/{brandName}/{model}/{modelDescription}/{vehicleId:int}",
                     defaults: new { controller = "Home", action = "Vehicle" }
                 );
 
@@ -91,6 +113,9 @@ namespace BolindersBil.Web
                     template: "{controller=Home}/{action=Index}"
                 );
             });
+
+            var runIdentitySeed = Task.Run(async () => await identitySeeder.CreateAdminAccountIfEmpty()).Result;
+
             VehicleSeed.FillIfEmpty(ctx);
         }
     }

@@ -1,15 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Nyheter";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Bolinders Bil : Nyheter";
 }
 
 <h2>Nyheter</h2>
+<hr />
 @*NewsBlock*@
-<partial name="_NewsViewBlock" />
+@model ArticlesResult
 
 
-
-
-
-
-
+@foreach (var article in Model.Articles.Take(3))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@article.Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@article.Author - <i><small>@article.PublishedAt</small></i></h6>
+            <p class="card-text">@NewsApiExtension.ShortenString(article.Description, 50)...</p>
+            <a href="@article.Url" target="_blank" class="card-link">Läs mer</a>
+            <br />
+        </div>
+    </div>
+    <br />
+}

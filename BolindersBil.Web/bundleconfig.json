@@ -1,0 +1,25 @@
+[
+  {
+    "outputFileName": "wwwroot/js/bundle.js",
+    "inputFiles": [
+      "wwwroot/js/BulkDelete.js",
+      "wwwroot/js/CountMontly.js",
+      "wwwroot/js/EditAttributeList.js",
+      "wwwroot/js/GoogleGeoCode.js",
+      "wwwroot/js/Sendlink.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bundlelib.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.min.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.css"
+    ]
+  }
+]

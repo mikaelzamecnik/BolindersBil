@@ -14,7 +14,7 @@
     var marker = new google.maps.Marker({
         map: map,
         position: myLatLng,
-        title: 'BolindersBil - Anlägning Jönkoping',
+        title: 'BolindersBil - Anläggning Jönkoping',
         url: 'https://goo.gl/maps/R8aL5HBkq132'
     });
     google.maps.event.addListener(marker, 'click', function () {
@@ -23,7 +23,7 @@
     var marker2 = new google.maps.Marker({
         map: map,
         position: myLating2,
-        title: 'BolindersBil - Anlägning Göteborg',
+        title: 'BolindersBil - Anläggning Göteborg',
         url: 'https://goo.gl/maps/WNFVam65dfC2'
 
     });
@@ -33,7 +33,7 @@
     var marker3 = new google.maps.Marker({
         map: map,
         position: myLating3,
-        title: 'BolindersBil - Anlägning Värnamo',
+        title: 'BolindersBil - Anläggning Värnamo',
         url: 'https://goo.gl/maps/e8BYHiAqFpQ2'
     });
     google.maps.event.addListener(marker3, 'click', function () {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -14,6 +14,8 @@ using System.Web.Http;
 using BolindersBil.Web.Infrastructure;
 using BolindersBil.Web.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using BolindersBil.Web.Models.NewsModels;
+using BolindersBil.Web.Constants;
 
 namespace BolindersBil.Web.Controllers
 {
@@ -30,9 +32,19 @@ namespace BolindersBil.Web.Controllers
             _appSettings = settings.Value;
             _context = context;
         }
-
-        public IActionResult Index(string state, int page = 1)
+        public IActionResult Index(ArticlesResult articlesResuls,string state, int page = 1)
        {
+            var newsApiClient = new NewsApiClient(_appSettings.NewsApiKey, _appSettings.NewsApiUrl);
+
+            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+            {
+                Sources = { "the-new-york-times" },
+                Q = "Apple",
+                SortBy = SortBys.PublishedAt,
+                Language = Languages.EN,
+                From = new DateTime(2018, 09, 24)
+            });
+
             var vehicles = vehicleRepo.Vehicles;
             var brands = vehicleRepo.Brands;
 
@@ -83,7 +95,8 @@ namespace BolindersBil.Web.Controllers
                 Brands = brands,
                 BrandsInStock = brandsInStock,
                 ShowButton = showButton,
-                NextPage = ++page
+                NextPage = ++page,
+                ArticlesResults = articlesResponse
             };
 
             return View(vm);
@@ -93,23 +106,24 @@ namespace BolindersBil.Web.Controllers
         public IActionResult Vehicle(int vehicleId)
         {
             var vehicle = vehicleRepo.Vehicles.FirstOrDefault(x => x.Id.Equals(vehicleId));
-
+            var relatedVehicles = vehicleRepo.Vehicles.Where(x => x.BrandId.Equals(vehicle.BrandId)).Where(x => x.Price > vehicle.Price).Take(4);
             var vm = new SingleVehicleViewModel
             {
-                DealerShips = vehicleRepo.Dealerships.ToSelectList(vehicle),
-                Brands = vehicleRepo.Brands.ToSelectList(vehicle),
-                Vehicle = vehicle
-
+                Vehicle = vehicle,
+                RelatedVehicles = relatedVehicles
             };
 
             return View(vm);
+
+
         }
 
+        [HttpPost]
         public IActionResult SendLink(SingleVehicleViewModel model)
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("bolindersbil@hotmail.com"));
+            message.From.Add(new MailboxAddress("mail.bolinder.bil@gmail.com"));
                 message.To.Add(new MailboxAddress(model.SendMail));
                 message.Subject = "Här kommer din drömbil från BolindersBil";
                 message.Body = new TextPart("html")
@@ -121,16 +135,14 @@ namespace BolindersBil.Web.Controllers
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
                 client.Connect(_appSettings.FormSmtpServer, _appSettings.FormPort);
-                //client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord); Change when you have a smtp server
+                client.Authenticate(_appSettings.FormUserName, _appSettings.FormPassWord);
                 client.Send(message);
                 client.Disconnect(true);
             }
                 ModelState.Clear();
-            return RedirectToAction(nameof(Index));
-            //Need to redirect on the same page... Vehicle/vehicie/id
-            //Todo Need a failsave if input value = empty
-            //else { ModelState.Clear(); return RedirectToRoute(); }
+            return Redirect(model.Url);
         }
+
 
     }
 }
