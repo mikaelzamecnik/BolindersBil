@@ -23,7 +23,15 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img class="img-fluid" src="~/Images/BCK948/e2a125f4-b785-453a-8ff8-ee6cb2b4c0f2pexels-photo-358189.jpeg" />
+                        @foreach (var im in p.FileUpload)
+                        {
+                            @if (p.FileUpload.First() == im)
+                            {
+                                <img class="img-fluid" src="@im.FilePath" alt="@im.FileTitle" />
+                            }
+
+
+                        }
                     </div>
                     <div class="col-md-8">
                         <h3>@p.Brand.Name @p.Model  @p.ModelDescription</h3>
